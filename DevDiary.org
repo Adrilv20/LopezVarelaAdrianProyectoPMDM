@@ -3,15 +3,16 @@
 *** [2/2] Login with username and password
     - [X] Username
     - [X] Password
-*** [5/5] Register with username, name, password, email
+*** [4/5] Register with username, name, password, email
     - [X] Username
     - [X] Email
-    - [X] Country dropdown
+    - [ ] Country dropdown
     - [X] Passwords
     - [X] Reinsert password
 *** [0/2] After registering, go back to login name, but set values on fields
     - [ ] Implement going back as a Backpress action
-    - [ ] Load fields
+    - [ ] Load fields (see [[https://developer.android.com/training/data-storage/shared-preferences][SharedPreferences]]
+      )
 ** [0/6] Leftover logic
    - [ ] Transition from login to register
    - [ ] Check non empty fields
@@ -19,6 +20,11 @@
    - [ ] Check that passwords match
    - [ ] Transition back from register to login with backpress action
    - [ ] Load values from register screen to login
+** TODO Others
+   - Change Sign up window to use a scroll layout.
+   - Move all literal strings to the resources file.
+   - Customize application's theme.
+   - Enable back button on toolbar (at least for Sign in window)
 * Research
   - [[https://developer.android.com/guide/components/activities/tasks-and-back-stack][Android activities and back button]]
   - [[https://developer.android.com/guide/components/activities/tasks-and-back-stack][Android activities]] (general concepts)
