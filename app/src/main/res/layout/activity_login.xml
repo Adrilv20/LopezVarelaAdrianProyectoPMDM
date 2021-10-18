@@ -52,7 +52,7 @@
         app:layout_constraintTop_toTopOf="@+id/btnRegister" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilName"
+        android:id="@+id/tilUsername"
         android:layout_width="345dp"
         android:layout_height="56dp"
         android:layout_marginTop="62dp"
@@ -73,7 +73,7 @@
         android:layout_marginTop="44dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilName">
+        app:layout_constraintTop_toBottomOf="@+id/tilUsername">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"

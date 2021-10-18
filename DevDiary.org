@@ -3,11 +3,12 @@
 *** [2/2] Login with username and password
     - [X] Username
     - [X] Password
-*** [0/4] Register with username, name, password, email
-    - [ ] Username
-    - [ ] Email
-    - [ ] Passwords
-    - [ ] Reinsert password
+*** [5/5] Register with username, name, password, email
+    - [X] Username
+    - [X] Email
+    - [X] Country dropdown
+    - [X] Passwords
+    - [X] Reinsert password
 *** [0/2] After registering, go back to login name, but set values on fields
     - [ ] Implement going back as a Backpress action
     - [ ] Load fields
