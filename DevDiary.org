@@ -9,16 +9,16 @@
     - [ ] Country dropdown
     - [X] Passwords
     - [X] Reinsert password
-*** [0/2] After registering, go back to login name, but set values on fields
-    - [ ] Implement going back as a Backpress action
+*** [1/2] After registering, go back to login name, but set values on fields
+    - [X] Implement going back as a Backpress action
     - [ ] Load fields (see [[https://developer.android.com/training/data-storage/shared-preferences][SharedPreferences]])
-** [0/6] Leftover logic
-   - [ ] Transition from login to register
+** [1/6] Leftover logic
+   - [X] Transition from login to register
    - [ ] Check non empty fields
    - [ ] Validate email?
    - [ ] Check that passwords match
    - [ ] Transition back from register to login with backpress action
-   - [ ] Load values from register screen to login
+   - [ ] Load values from shared preferences on login screen
 ** TODO Others
    - [ ] Change Sign up window to use a scroll layout.
    - [ ] Move all literal strings to the resources file.

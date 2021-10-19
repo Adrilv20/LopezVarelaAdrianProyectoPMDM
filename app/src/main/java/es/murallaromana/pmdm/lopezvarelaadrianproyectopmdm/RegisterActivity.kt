@@ -17,6 +17,14 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
         btnSignup = binding.btnSignUp
         btnSignup.setOnClickListener {
+            val username : String; val email: String; val password: String; val duplicatedPassword : String
+            with(binding) {
+                username = tilUsername.editText.toString()
+                email = tilEmail.editText.toString()
+                password = tilPassword.editText.toString()
+                duplicatedPassword = tilPassword2.editText.toString()
+            }
+            val user = UserData(username, email, password, duplicatedPassword)
             if (validateInput()) {
                 // Store info and go back to the login screen
                 Toast.makeText(this, "Successful sign up. You're being redirected to the login screen.", Toast.LENGTH_SHORT).show()
@@ -25,7 +33,12 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Quick validation of the fields requested. Strings must not be empty, and both passwords must match.
+     * Country is left unused for now.
+     * If fields are
+     */
     private fun validateInput() : Boolean {
-        return true
+        va
     }
 }
