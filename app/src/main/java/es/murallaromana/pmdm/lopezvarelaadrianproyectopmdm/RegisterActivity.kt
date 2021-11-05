@@ -2,6 +2,7 @@ package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.ActivityRegisterBinding
@@ -19,26 +20,27 @@ class RegisterActivity : AppCompatActivity() {
         btnSignup.setOnClickListener {
             val username : String; val email: String; val password: String; val duplicatedPassword : String
             with(binding) {
-                username = tilUsername.editText.toString()
-                email = tilEmail.editText.toString()
-                password = tilPassword.editText.toString()
-                duplicatedPassword = tilPassword2.editText.toString()
+                // IMPORTANT:  the text itself is within editText.text.
+                // Since this can be a null value, we must access it either with !!. or !?.
+                username = tilUsername.editText?.text.toString().trim()
+                email = tilEmail.editText?.text.toString().trim()
+                password = tilPassword.editText?.text.toString().trim()
+                duplicatedPassword = tilPassword2.editText?.text.toString().trim()
             }
             val user = UserData(username, email, password, duplicatedPassword)
-            if (validateInput()) {
+
+            if (user.isValidData()) {
                 // Store info and go back to the login screen
-                Toast.makeText(this, "Successful sign up. You're being redirected to the login screen.", Toast.LENGTH_SHORT).show()
+                val sharedPref = getPreferences(MODE_PRIVATE)
+                with (sharedPref.edit()) {
+                    putString(getString(R.string.username_key), user.name)
+                    putString(getString(R.string.password_key), user.password)
+                    apply()
+                }
                 onBackPressed()
+            } else {
+                // TODO show toast to indicate invalid data
             }
         }
-    }
-
-    /**
-     * Quick validation of the fields requested. Strings must not be empty, and both passwords must match.
-     * Country is left unused for now.
-     * If fields are
-     */
-    private fun validateInput() : Boolean {
-        va
     }
 }
