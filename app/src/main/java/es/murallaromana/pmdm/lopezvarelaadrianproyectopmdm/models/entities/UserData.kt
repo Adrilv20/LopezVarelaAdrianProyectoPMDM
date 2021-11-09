@@ -1,6 +1,4 @@
-package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm
-
-import android.util.Log
+package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities
 
 class UserData(val name: String, val email: String, val password: String, val dupPassword : String?) {
 

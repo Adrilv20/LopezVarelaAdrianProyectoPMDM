@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="default_screen_margin_horz">16dp</dimen>
+    <dimen name="default_screen_margin_vert">16dp</dimen>
+    <dimen name="image_list_size">64dp</dimen>
+</resources>

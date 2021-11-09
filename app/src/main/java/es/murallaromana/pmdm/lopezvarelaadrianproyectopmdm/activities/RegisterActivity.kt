@@ -1,10 +1,11 @@
-package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm
+package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.Toast
+import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
+import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.UserData
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.ActivityRegisterBinding
 
 class RegisterActivity : AppCompatActivity() {
@@ -40,6 +41,7 @@ class RegisterActivity : AppCompatActivity() {
                 onBackPressed()
             } else {
                 // TODO show toast to indicate invalid data
+                Toast.makeText(this, "Some value is incorrect", Toast.LENGTH_LONG).show()
             }
         }
     }

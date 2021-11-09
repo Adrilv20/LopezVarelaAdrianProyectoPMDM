@@ -10,17 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LopezVarelaAdrianProyectoPMDM">
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activities.ItemListActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.RegisterActivity"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="LoginActivity" />
+                android:value=".activities.LoginActivity" />
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -2,4 +2,5 @@
     <string name="app_name">LopezVarelaAdrianProyectoPMDM</string>
     <string name="username_key">username</string>
     <string name="password_key">password</string>
+    <string name="itemListTitle">Film List</string>
 </resources>
