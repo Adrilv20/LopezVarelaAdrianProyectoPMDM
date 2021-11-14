@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LopezVarelaAdrianProyectoPMDM">
         <activity
+            android:name=".activities.FilmDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.ItemListActivity"
             android:exported="true" />
         <activity

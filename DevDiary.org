@@ -1,4 +1,4 @@
-* Developm<ent notes for the project
+* Development notes for the project
 ** TODO Create mock of login and register
 *** [2/2] Login with username and password
     - [X] Username
@@ -12,6 +12,11 @@
 *** [1/2] After registering, go back to login name, but set values on fields
     - [X] Implement going back as a Backpress action
     - [ ] Load fields (see [[https://developer.android.com/training/data-storage/shared-preferences][SharedPreferences]])
+*** Load a list of films
+    - [ ] Create film entities classes
+    - [ ] Create view related classes
+    - [ ] Create layout for the list view
+    - [ ]
 ** [1/6] Leftover logic
    - [X] Transition from login to register
    - [ ] Check non empty fields
@@ -25,6 +30,7 @@
    - [ ] Customize application's theme.
    - [ ] Enable back button on toolbar (at least for Sign in window)
 * Research
+  - [[https://developer.android.com/guide/components/activities/activity-lifecycle][Activities Lifecycle]]
   - [[https://developer.android.com/guide/components/activities/tasks-and-back-stack][Android activities and back button]]
   - [[https://developer.android.com/guide/components/activities/tasks-and-back-stack][Android activities]] (general concepts)
   - [[https://developer.android.com/guide/navigation][Navigation]]

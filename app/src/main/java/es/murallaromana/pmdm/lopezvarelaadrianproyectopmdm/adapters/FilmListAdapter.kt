@@ -1,10 +1,13 @@
 package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
+import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.activities.FilmDetailsActivity
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.FilmItemListBinding
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.Film
 import java.time.format.DateTimeFormatter
@@ -34,6 +37,12 @@ class FilmListAdapter(val films : List<Film>) : RecyclerView.Adapter<FilmListAda
             tvDirector.setText("Directed by: " + film.director)
             tvReleaseDate.setText("Released on: " + dateFormat.format(film.releaseDate))
             // TODO(add images with Picasso library)
+        }
+        holder.itemView.setOnClickListener {
+            val intent : Intent = Intent(holder.itemView.context, FilmDetailsActivity::class.java).apply{
+                putExtra("film", film)
+            }
+            it.context.startActivity(intent)
         }
     }
 
