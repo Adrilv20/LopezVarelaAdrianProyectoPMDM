@@ -29,10 +29,11 @@
 
     <ImageView
         android:id="@+id/ivFilmPoster"
-        android:layout_width="120dp"
-        android:layout_height="150dp"
+        android:layout_width="@dimen/film_poster_list_width"
+        android:layout_height="@dimen/film_poster_list_height"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:paddingBottom="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />

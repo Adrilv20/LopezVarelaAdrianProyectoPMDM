@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.activities.FilmDetailsActivity
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.FilmItemListBinding
@@ -14,6 +15,9 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
 class FilmListAdapter(val films : List<Film>) : RecyclerView.Adapter<FilmListAdapter.FilmViewHolder>(){
+
+    private var filmPosterWidth : Int = 0
+    private var filmPosterHeight: Int = 0
 
     private val dateFormat : DateTimeFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
 
@@ -26,7 +30,10 @@ class FilmListAdapter(val films : List<Film>) : RecyclerView.Adapter<FilmListAda
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmViewHolder {
+        filmPosterWidth = (parent.context.resources.getDimension(R.dimen.film_poster_list_width)).toInt()
+        filmPosterHeight = (parent.context.resources.getDimension(R.dimen.film_poster_list_height)).toInt()
         val binding = FilmItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
         return FilmViewHolder(binding)
     }
 
@@ -37,6 +44,9 @@ class FilmListAdapter(val films : List<Film>) : RecyclerView.Adapter<FilmListAda
             tvDirector.setText("Directed by: " + film.director)
             tvReleaseDate.setText("Released on: " + dateFormat.format(film.releaseDate))
             // TODO(add images with Picasso library)
+            Picasso.get().load(film.imageURL)
+                .resize(filmPosterWidth, filmPosterHeight).centerCrop()
+                .into(ivFilmPoster)
         }
         holder.itemView.setOnClickListener {
             val intent : Intent = Intent(holder.itemView.context, FilmDetailsActivity::class.java).apply{
