@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
-import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.UserData
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.ActivityRegisterBinding
+import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.KEYS
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -32,15 +32,14 @@ class RegisterActivity : AppCompatActivity() {
 
             if (user.isValidData()) {
                 // Store info and go back to the login screen
-                val sharedPref = getPreferences(MODE_PRIVATE)
+                val sharedPref = getSharedPreferences(KEYS.LOGIN_DATA, MODE_PRIVATE)
                 with (sharedPref.edit()) {
-                    putString(getString(R.string.username_key), user.name)
-                    putString(getString(R.string.password_key), user.password)
+                    putString(KEYS.USERNAME, user.name)
+                    putString(KEYS.PASSWORD, user.password)
                     apply()
                 }
                 onBackPressed()
             } else {
-                // TODO show toast to indicate invalid data
                 Toast.makeText(this, "Some value is incorrect", Toast.LENGTH_LONG).show()
             }
         }
