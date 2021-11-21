@@ -35,6 +35,7 @@ class FilmDetailsActivity : AppCompatActivity() {
         binding.tvDetailsFilmTitle.text = film.title
         binding.tvDirectorDetails.text = film.director
         binding.tvReleaseDateDetails.text = dateFormat.format(film.releaseDate)
+        binding.tvDuration.text = film.durationMins.toString() + " mins"
         Picasso.get().load(film.imageURL)
             .resize(imageWidth.toInt(), imageHeight.toInt()).centerCrop()
             .into(binding.ivDetailsFilmPoster)

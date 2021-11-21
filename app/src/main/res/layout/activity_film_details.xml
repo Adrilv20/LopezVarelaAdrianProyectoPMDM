@@ -9,10 +9,10 @@
 
     <ImageView
         android:id="@+id/ivDetailsFilmPoster"
-        android:layout_width="187dp"
-        android:layout_height="166dp"
-        android:layout_marginTop="64dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="229dp"
+        android:layout_height="266dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="28dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
@@ -32,60 +32,63 @@
         android:id="@+id/divider"
         android:layout_width="409dp"
         android:layout_height="1dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintTop_toBottomOf="@+id/tvDetailsFilmTitle"
-        tools:layout_editor_absoluteX="1dp" />
-
-    <TextView
-        android:id="@+id/tvDirectorLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="40dp"
-        android:text="Directed by:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
-
-    <TextView
-        android:id="@+id/tvReleaseDateLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="40dp"
-        android:text="Released on:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDirectorLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDirectorDetails"
+        tools:layout_editor_absoluteX="2dp" />
 
     <TextView
         android:id="@+id/tvDirectorDetails"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginTop="20dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/tvDirectorLabel"
-        app:layout_constraintStart_toEndOf="@+id/tvDirectorLabel"
-        app:layout_constraintTop_toTopOf="@+id/tvDirectorLabel"
-        app:layout_constraintVertical_bias="0.0" />
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailsFilmTitle" />
 
     <TextView
         android:id="@+id/tvReleaseDateDetails"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:hint="ReleaseDate"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/tvReleaseDateLabel"
-        app:layout_constraintStart_toEndOf="@+id/tvReleaseDateLabel"
-        app:layout_constraintTop_toTopOf="@+id/tvReleaseDateLabel"
-        app:layout_constraintVertical_bias="0.0" />
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/ivReleaseDateIcon"
+        app:layout_constraintStart_toStartOf="@+id/ivReleaseDateIcon"
+        app:layout_constraintTop_toBottomOf="@+id/ivReleaseDateIcon" />
 
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="409dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="24dp"
-        android:background="?android:attr/listDivider"
+    <ImageView
+        android:id="@+id/ivReleaseDateIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.535"
+        app:layout_constraintStart_toEndOf="@+id/ivDetailsFilmPoster"
+        app:layout_constraintTop_toTopOf="@+id/ivDetailsFilmPoster"
+        app:srcCompat="@drawable/ic_calendar_svgrepo_com" />
+
+    <ImageView
+        android:id="@+id/ivDurationIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivDetailsFilmPoster"
         app:layout_constraintTop_toBottomOf="@+id/tvReleaseDateDetails"
-        tools:layout_editor_absoluteX="2dp" />
+        app:srcCompat="@drawable/ic_clock_svgrepo_com" />
+
+    <TextView
+        android:id="@+id/tvDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/ivDurationIcon"
+        app:layout_constraintStart_toStartOf="@+id/ivDurationIcon"
+        app:layout_constraintTop_toBottomOf="@+id/ivDurationIcon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
