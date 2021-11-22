@@ -26,10 +26,6 @@ class FilmDetailsActivity : AppCompatActivity() {
         imageWidth = resources.getDimension(R.dimen.film_poster_list_width).toInt()
         imageHeight = resources.getDimension(R.dimen.film_poster_list_height).toInt()
 
-        // TODO(ask what would be preferrable)
-        // como hacerlo con extras[]? pide nullable
-        // val film : Film = intent.extras?.get("film") as Film
-
         val film : Film = intent.getSerializableExtra("film") as Film
 
         binding.tvDetailsFilmTitle.text = film.title

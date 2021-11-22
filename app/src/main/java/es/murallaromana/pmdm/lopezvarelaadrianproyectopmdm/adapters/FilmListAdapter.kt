@@ -43,7 +43,6 @@ class FilmListAdapter(val films : List<Film>) : RecyclerView.Adapter<FilmListAda
             tvTitle.setText(film.title)
             tvDirector.setText("Directed by: " + film.director)
             tvReleaseDate.setText("Released on: " + dateFormat.format(film.releaseDate))
-            // TODO(add images with Picasso library)
             Picasso.get().load(film.imageURL)
                 .resize(filmPosterWidth, filmPosterHeight).centerCrop()
                 .into(ivFilmPoster)

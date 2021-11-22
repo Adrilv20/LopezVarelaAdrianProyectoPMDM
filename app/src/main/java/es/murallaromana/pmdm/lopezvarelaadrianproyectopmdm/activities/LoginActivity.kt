@@ -33,15 +33,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        // TODO(works when launching app, but not when coming back from RegisterActivity)
         val sharedPref = getSharedPreferences(KEYS.LOGIN_DATA, MODE_PRIVATE)
         val username: String? = sharedPref.getString(KEYS.USERNAME, "").toString()
-        // TODO ask why it needs the .toString
         val password: String? = sharedPref.getString(KEYS.PASSWORD, "").toString()
-        Log.d(
-            "Login",
-            "Retrieved data from sharedpreferences:\n User: ${username}, Password: ${password}"
-        )
         binding.etUsername.setText(username)
         binding.etPassword.setText(password)
         super.onResume()

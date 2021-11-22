@@ -40,6 +40,7 @@ class RegisterActivity : AppCompatActivity() {
                 }
                 onBackPressed()
             } else {
+                // TODO(modify validation process to give info on the field that wasn't valid)
                 Toast.makeText(this, "Some value is incorrect", Toast.LENGTH_LONG).show()
             }
         }
