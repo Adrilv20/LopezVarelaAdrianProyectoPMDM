@@ -7,14 +7,14 @@ import com.squareup.picasso.Picasso
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.ActivityFilmDetailsBinding
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.Film
+import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.KEYS
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
 class FilmDetailsActivity : AppCompatActivity() {
     private lateinit var binding : ActivityFilmDetailsBinding
 
-    // currently only used on onCreate method, but leaving them outside of it in case
-    // they're needed on other methods.
+    // currently only used on onCreate method, but leaving them outside of it in case they're needed on other methods.
     private var imageWidth : Int = 0
     private var imageHeight : Int = 0
 
@@ -34,11 +34,11 @@ class FilmDetailsActivity : AppCompatActivity() {
         imageHeight = resources.getDimension(R.dimen.film_poster_details_height).toInt()
 
         // retrieve the corresponding film object from the intent
-        val film : Film = intent.getSerializableExtra("film") as Film
+        val film : Film = intent.getSerializableExtra(KEYS.FILM) as Film
 
         // set the film data on the corresponding fields
         binding.tvDetailsFilmTitle.text = film.title
-        binding.tvDirectorDetails.text = "Directed by " + film.director
+        binding.tvDirectorDetails.text = getString(R.string.directed_by_prefix) + film.director
         binding.tvReleaseDate.text = dateFormat.format(film.releaseDate)
         // TODO(change duration format to "Xh Ymin")
         binding.tvDuration.text = film.durationMins.toString() + " mins"

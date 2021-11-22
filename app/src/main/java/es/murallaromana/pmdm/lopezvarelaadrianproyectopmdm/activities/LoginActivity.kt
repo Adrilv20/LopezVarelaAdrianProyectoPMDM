@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
+import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.ActivityLoginBinding
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.KEYS
 
@@ -22,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
         // make the register button redirect to the corresponding screen
         btnRegister = binding.btnRegister
         btnRegister.setOnClickListener {
-            Toast.makeText(this, "Redirigiendo a la pantalla de registro.", Toast.LENGTH_SHORT)
+            Toast.makeText(this, getString(R.string.redirect_to_login_message), Toast.LENGTH_SHORT)
                 .show()
             startActivity(Intent(this, RegisterActivity::class.java))
         }

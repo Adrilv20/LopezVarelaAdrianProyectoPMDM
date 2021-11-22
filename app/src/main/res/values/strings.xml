@@ -16,4 +16,6 @@
         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </string>
     <string name="filmDetailsViewTitle">Film details</string>
+    <string name="redirect_to_login_message">Redirigiendo a la pantalla de registro.</string>
+    <string name="directed_by_prefix">\"Directed by \"</string>
 </resources>

@@ -10,6 +10,7 @@ import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.activities.FilmDetailsActivity
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.FilmItemListBinding
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.Film
+import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.KEYS
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
@@ -50,7 +51,7 @@ class FilmListAdapter(val films : List<Film>, val context : Context) : RecyclerV
         // set the listener to navigate to the details page of the film
         holder.itemView.setOnClickListener {
             val intent : Intent = Intent(holder.itemView.context, FilmDetailsActivity::class.java).apply{
-                putExtra("film", film)
+                putExtra(KEYS.FILM, film)
             }
             it.context.startActivity(intent)
         }
