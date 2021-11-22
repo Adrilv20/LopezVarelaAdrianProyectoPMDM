@@ -22,6 +22,7 @@ class RegisterActivity : AppCompatActivity() {
         btnSignup = binding.btnSignUp
         btnSignup.setOnClickListener {
             val username : String; val email: String; val password: String; val duplicatedPassword : String
+
             // extract the input values from the textInputLayouts
             with(binding) {
                 // IMPORTANT:  the text itself is within editText.text.
@@ -45,8 +46,7 @@ class RegisterActivity : AppCompatActivity() {
                 // go back to the login screen
                 onBackPressed()
             } else {
-                // TODO(modify validation process to give info on the field that wasn't valid)
-                Toast.makeText(this, "Some value is incorrect", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, user.getErrorMessage(), Toast.LENGTH_LONG).show()
             }
         }
     }
