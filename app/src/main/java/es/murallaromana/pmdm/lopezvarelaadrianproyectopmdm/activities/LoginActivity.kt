@@ -19,6 +19,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // make the register button redirect to the corresponding screen
         btnRegister = binding.btnRegister
         btnRegister.setOnClickListener {
             Toast.makeText(this, "Redirigiendo a la pantalla de registro.", Toast.LENGTH_SHORT)
@@ -26,6 +27,8 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
+        // make the login button transition into the list of films
+        // no actual account check performed since this is mostly a mock application
         btnLogin = binding.btnLogin
         btnLogin.setOnClickListener {
             startActivity(Intent(this,ItemListActivity::class.java))
@@ -33,6 +36,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
+        // in case there's an account data stored in sharedPreferences from the register screen,
+        // load the corresponding username and password on this screen's fields.
         val sharedPref = getSharedPreferences(KEYS.LOGIN_DATA, MODE_PRIVATE)
         val username: String? = sharedPref.getString(KEYS.USERNAME, "").toString()
         val password: String? = sharedPref.getString(KEYS.PASSWORD, "").toString()

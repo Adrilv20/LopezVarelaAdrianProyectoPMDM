@@ -13,10 +13,12 @@ import java.time.format.FormatStyle
 class FilmDetailsActivity : AppCompatActivity() {
     private lateinit var binding : ActivityFilmDetailsBinding
 
+    // currently only used on onCreate method, but leaving them outside of it in case
+    // they're needed on other methods.
     private var imageWidth : Int = 0
     private var imageHeight : Int = 0
 
-    // any way to have this as "global" for the whole app? companions
+    // TODO(move it to a companion so it's global for the whole app)
     private val dateFormat : DateTimeFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,13 +26,17 @@ class FilmDetailsActivity : AppCompatActivity() {
         binding = ActivityFilmDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setTitle("Film details")
+        // set the title for the view
+        setTitle(getString(R.string.filmDetailsViewTitle))
 
+        // get the image dimensions from the correspoding resources file for future use.
         imageWidth = resources.getDimension(R.dimen.film_poster_details_width).toInt()
         imageHeight = resources.getDimension(R.dimen.film_poster_details_height).toInt()
 
+        // retrieve the corresponding film object from the intent
         val film : Film = intent.getSerializableExtra("film") as Film
 
+        // set the film data on the corresponding fields
         binding.tvDetailsFilmTitle.text = film.title
         binding.tvDirectorDetails.text = "Directed by " + film.director
         binding.tvReleaseDate.text = dateFormat.format(film.releaseDate)
@@ -40,9 +46,8 @@ class FilmDetailsActivity : AppCompatActivity() {
             text = resources.getString(R.string.lorem_ipsum)
             movementMethod = ScrollingMovementMethod()
         }
-
         Picasso.get().load(film.imageURL)
-            .resize(imageWidth.toInt(), imageHeight.toInt())
+            .resize(imageWidth, imageHeight)
             .into(binding.ivDetailsFilmPoster)
     }
 }

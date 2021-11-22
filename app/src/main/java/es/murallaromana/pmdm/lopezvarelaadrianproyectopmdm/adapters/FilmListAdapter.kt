@@ -1,10 +1,9 @@
 package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.adapters
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
@@ -14,14 +13,14 @@ import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.Film
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
-class FilmListAdapter(val films : List<Film>) : RecyclerView.Adapter<FilmListAdapter.FilmViewHolder>(){
-
-    private var filmPosterWidth : Int = 0
-    private var filmPosterHeight: Int = 0
+class FilmListAdapter(val films : List<Film>, val context : Context) : RecyclerView.Adapter<FilmListAdapter.FilmViewHolder>(){
+    // context required in order to fetch the dimensions for the images
+    private var filmPosterWidth : Int = context.resources.getDimension(R.dimen.film_poster_list_width).toInt()
+    private var filmPosterHeight: Int = context.resources.getDimension(R.dimen.film_poster_list_height).toInt()
 
     private val dateFormat : DateTimeFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
 
-    class FilmViewHolder(binding : FilmItemListBinding) : RecyclerView.ViewHolder(binding.root) {
+    class FilmViewHolder(val binding : FilmItemListBinding) : RecyclerView.ViewHolder(binding.root) {
         // TODO(change the binding to a method inside the holder, instead of directing binding in Adapter.onBindViewHolder)
         val tvTitle = binding.tvFilmTitle
         val tvReleaseDate = binding.tvReleaseDate
@@ -30,14 +29,15 @@ class FilmListAdapter(val films : List<Film>) : RecyclerView.Adapter<FilmListAda
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmViewHolder {
-        filmPosterWidth = (parent.context.resources.getDimension(R.dimen.film_poster_list_width)).toInt()
-        filmPosterHeight = (parent.context.resources.getDimension(R.dimen.film_poster_list_height)).toInt()
+        // This method may be called multiple times (for example when scrolling down the list)
+        // Thus the retrieval of the dimensions for the images has been changed to be performed only when FilmListAdapter gets created.
         val binding = FilmItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-
         return FilmViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: FilmViewHolder, position: Int) {
+        // load the info of the corresponding film (based on it's position on the RecyclerView)
+        // on the corresponding holder
         val film = films[position]
         with(holder){
             tvTitle.setText(film.title)
@@ -47,6 +47,7 @@ class FilmListAdapter(val films : List<Film>) : RecyclerView.Adapter<FilmListAda
                 .resize(filmPosterWidth, filmPosterHeight).centerCrop()
                 .into(ivFilmPoster)
         }
+        // set the listener to navigate to the details page of the film
         holder.itemView.setOnClickListener {
             val intent : Intent = Intent(holder.itemView.context, FilmDetailsActivity::class.java).apply{
                 putExtra("film", film)
