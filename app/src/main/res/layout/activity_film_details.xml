@@ -49,16 +49,16 @@
         app:layout_constraintTop_toBottomOf="@+id/tvDetailsFilmTitle" />
 
     <TextView
-        android:id="@+id/tvReleaseDateDetails"
+        android:id="@+id/tvReleaseDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="6dp"
         android:hint="ReleaseDate"
         android:text="TextView"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@+id/ivReleaseDateIcon"
         app:layout_constraintStart_toStartOf="@+id/ivReleaseDateIcon"
-        app:layout_constraintTop_toBottomOf="@+id/ivReleaseDateIcon" />
+        app:layout_constraintTop_toBottomOf="@+id/tvReleaseDateLabel" />
 
     <ImageView
         android:id="@+id/ivReleaseDateIcon"
@@ -75,18 +75,39 @@
         android:id="@+id/ivDurationIcon"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.535"
         app:layout_constraintStart_toEndOf="@+id/ivDetailsFilmPoster"
-        app:layout_constraintTop_toBottomOf="@+id/tvReleaseDateDetails"
+        app:layout_constraintTop_toBottomOf="@+id/tvReleaseDate"
         app:srcCompat="@drawable/ic_clock_svgrepo_com" />
 
     <TextView
         android:id="@+id/tvDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="6dp"
         android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/ivDurationIcon"
+        app:layout_constraintStart_toStartOf="@+id/ivDurationIcon"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/tvReleaseDateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="Released on"
+        app:layout_constraintEnd_toEndOf="@+id/ivReleaseDateIcon"
+        app:layout_constraintStart_toStartOf="@+id/ivReleaseDateIcon"
+        app:layout_constraintTop_toBottomOf="@+id/ivReleaseDateIcon" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="Duration"
         app:layout_constraintEnd_toEndOf="@+id/ivDurationIcon"
         app:layout_constraintStart_toStartOf="@+id/ivDurationIcon"
         app:layout_constraintTop_toBottomOf="@+id/ivDurationIcon" />
