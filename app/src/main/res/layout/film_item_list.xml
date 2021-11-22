@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/list_space_between_items"
-    android:background="@color/film_background">
+    android:layout_marginBottom="@dimen/list_space_between_items">
 
     <TextView
         android:id="@+id/tvDirector"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="32dp"
+        android:textColor="@color/text_subitem"
         app:layout_constraintStart_toEndOf="@+id/ivFilmPoster"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvReleaseDate"
         tools:text="TextView" />
 
     <TextView
@@ -22,9 +22,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="32dp"
+        android:textColor="@color/text_subitem"
         app:layout_constraintStart_toEndOf="@+id/ivFilmPoster"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvFilmTitle"
         tools:text="TextView" />
 
     <ImageView
@@ -32,8 +33,9 @@
         android:layout_width="@dimen/film_poster_list_width"
         android:layout_height="@dimen/film_poster_list_height"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="6dp"
         android:paddingBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
@@ -43,8 +45,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="6dp"
         android:text="TextView"
+        android:textColor="@color/navy_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivFilmPoster"
         app:layout_constraintTop_toTopOf="parent" />

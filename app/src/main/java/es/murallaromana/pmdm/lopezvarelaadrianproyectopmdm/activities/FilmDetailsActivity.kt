@@ -2,6 +2,7 @@ package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import com.squareup.picasso.Picasso
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.ActivityFilmDetailsBinding
@@ -23,17 +24,25 @@ class FilmDetailsActivity : AppCompatActivity() {
         binding = ActivityFilmDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        imageWidth = resources.getDimension(R.dimen.film_poster_list_width).toInt()
-        imageHeight = resources.getDimension(R.dimen.film_poster_list_height).toInt()
+        setTitle("Film details")
+
+        imageWidth = resources.getDimension(R.dimen.film_poster_details_width).toInt()
+        imageHeight = resources.getDimension(R.dimen.film_poster_details_height).toInt()
 
         val film : Film = intent.getSerializableExtra("film") as Film
 
         binding.tvDetailsFilmTitle.text = film.title
-        binding.tvDirectorDetails.text = film.director
+        binding.tvDirectorDetails.text = "Directed by " + film.director
         binding.tvReleaseDate.text = dateFormat.format(film.releaseDate)
+        // TODO(change duration format to "Xh Ymin")
         binding.tvDuration.text = film.durationMins.toString() + " mins"
+        binding.tvDescription.apply {
+            text = resources.getString(R.string.lorem_ipsum)
+            movementMethod = ScrollingMovementMethod()
+        }
+
         Picasso.get().load(film.imageURL)
-            .resize(imageWidth.toInt(), imageHeight.toInt()).centerCrop()
+            .resize(imageWidth.toInt(), imageHeight.toInt())
             .into(binding.ivDetailsFilmPoster)
     }
 }

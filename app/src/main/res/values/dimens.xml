@@ -3,4 +3,7 @@
     <dimen name="list_space_between_items">6dp</dimen>
     <dimen name="film_poster_list_width">120dp</dimen>
     <dimen name="film_poster_list_height">150dp</dimen>
+    <dimen name="film_poster_details_width">230dp</dimen>
+    <dimen name="film_poster_details_height">270dp</dimen>
 </resources>
+
