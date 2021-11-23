@@ -17,5 +17,5 @@
     </string>
     <string name="filmDetailsViewTitle">Film details</string>
     <string name="redirect_to_login_message">Redirigiendo a la pantalla de registro.</string>
-    <string name="directed_by_prefix">\"Directed by \"</string>
+    <string name="directed_by_prefix">Directed by</string>
 </resources>

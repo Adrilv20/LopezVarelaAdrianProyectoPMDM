@@ -44,7 +44,7 @@ class FilmDetailsActivity : AppCompatActivity() {
         // set the film data on the corresponding fields
         with(binding) {
             tvDetailsFilmTitle.text = film.title
-            tvDirectorDetails.text = getString(R.string.directed_by_prefix) + film.director
+            tvDirectorDetails.text = getString(R.string.directed_by_prefix) + " " + film.director
             tvReleaseDate.text = dateFormat.format(film.releaseDate)
             // TODO(change duration format to "Xh Ymin")
             tvDuration.text = film.durationMins.toString() + " mins"

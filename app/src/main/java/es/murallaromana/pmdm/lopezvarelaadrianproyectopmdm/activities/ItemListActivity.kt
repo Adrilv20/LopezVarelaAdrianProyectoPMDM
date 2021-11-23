@@ -30,9 +30,9 @@ class ItemListActivity : AppCompatActivity() {
             Toast.makeText(this, "to be implemented", Toast.LENGTH_LONG).show()
         }
 
+        // TODO(check if we may need to re-make this every time we get back into the list view.)
         // retrieve the films data
         val films = GBL_STATE.getAllFilms()
-        films.forEach { f -> Log.d("film", f.toString()) }
         // set the layout manager and the adapter for the RecyclerView
         view = binding.rvFilmList
         view.layoutManager = LinearLayoutManager(this)
