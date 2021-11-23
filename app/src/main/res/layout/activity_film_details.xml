@@ -36,10 +36,10 @@
         android:id="@+id/divider"
         android:layout_width="409dp"
         android:layout_height="1dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDirectorDetails" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTelephone" />
 
     <TextView
         android:id="@+id/tvDirectorDetails"
@@ -123,7 +123,7 @@
         android:id="@+id/tvDescription"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="6dp"
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
@@ -133,5 +133,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider"
         tools:hint="@string/lorem_ipsum" />
+
+    <TextView
+        android:id="@+id/tvTelephone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="TextView"
+        android:textColor="@color/telephoneNumber"
+        app:layout_constraintEnd_toEndOf="@+id/tvDirectorDetails"
+        app:layout_constraintStart_toStartOf="@+id/tvDirectorDetails"
+        app:layout_constraintTop_toBottomOf="@+id/tvDirectorDetails" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
