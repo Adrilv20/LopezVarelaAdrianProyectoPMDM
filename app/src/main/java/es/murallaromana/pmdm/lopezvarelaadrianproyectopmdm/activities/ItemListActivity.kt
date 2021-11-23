@@ -2,14 +2,15 @@ package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.App.GBL_STATE
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.adapters.FilmListAdapter
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.ActivityItemListBinding
-import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.dao.FilmDAOMockImpl
 
 class ItemListActivity : AppCompatActivity() {
     private lateinit var binding : ActivityItemListBinding
@@ -30,7 +31,8 @@ class ItemListActivity : AppCompatActivity() {
         }
 
         // retrieve the films data
-        val films = FilmDAOMockImpl().getallFilms()
+        val films = GBL_STATE.getAllFilms()
+        films.forEach { f -> Log.d("film", f.toString()) }
         // set the layout manager and the adapter for the RecyclerView
         view = binding.rvFilmList
         view.layoutManager = LinearLayoutManager(this)

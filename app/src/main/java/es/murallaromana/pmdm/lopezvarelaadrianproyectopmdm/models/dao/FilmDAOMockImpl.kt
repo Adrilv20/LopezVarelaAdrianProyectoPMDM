@@ -4,7 +4,7 @@ import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.Film
 import java.time.LocalDate
 
 class FilmDAOMockImpl: FilmDAO {
-    override fun getallFilms(): List<Film> =
+    override fun getAllFilms(): List<Film> =
         listOf<Film>(
             Film("The Lord of the Rings: The Fellowship of the Ring", "Peter Jackson","123456789",  178,
                 LocalDate.of(2001,12,19), "https://flxt.tmsimg.com/assets/p28828_p_v10_am.jpg"),
