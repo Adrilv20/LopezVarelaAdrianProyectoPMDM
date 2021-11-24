@@ -1,5 +1,6 @@
 package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -28,6 +29,8 @@ class ItemListActivity : AppCompatActivity() {
         val fab : FloatingActionButton = binding.fabAddItem
         fab.setOnClickListener {
             Toast.makeText(this, "to be implemented", Toast.LENGTH_LONG).show()
+            val newFilmIntent = Intent(this, FilmEditActivity::class.java)
+            startActivity(newFilmIntent)
         }
 
         // TODO(check if we may need to re-make this every time we get back into the list view.)

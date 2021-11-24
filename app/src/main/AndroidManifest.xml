@@ -3,6 +3,7 @@
     package="es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -11,6 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LopezVarelaAdrianProyectoPMDM">
+        <activity
+            android:name=".activities.FilmEditActivity"
+            android:exported="true" />
         <activity
             android:name=".activities.FilmDetailsActivity"
             android:exported="false"
@@ -37,8 +41,10 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
+
 </manifest>
