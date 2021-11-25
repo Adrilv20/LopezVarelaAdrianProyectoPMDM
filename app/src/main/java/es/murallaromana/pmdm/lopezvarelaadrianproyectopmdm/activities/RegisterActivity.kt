@@ -18,6 +18,8 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        title = "Creating new account"
+
         // set the process of data validation when pressing Sign button
         btnSignup = binding.btnSignUp
         btnSignup.setOnClickListener {
