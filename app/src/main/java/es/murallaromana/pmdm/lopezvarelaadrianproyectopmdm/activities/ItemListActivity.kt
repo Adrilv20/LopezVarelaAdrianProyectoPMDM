@@ -28,7 +28,6 @@ class ItemListActivity : AppCompatActivity() {
         // TODO(finish the listener to move to new film screen with the FAB)
         val fab : FloatingActionButton = binding.fabAddItem
         fab.setOnClickListener {
-            Toast.makeText(this, "to be implemented", Toast.LENGTH_LONG).show()
             val newFilmIntent = Intent(this, FilmEditActivity::class.java)
             startActivity(newFilmIntent)
         }

@@ -14,7 +14,11 @@
         android:theme="@style/Theme.LopezVarelaAdrianProyectoPMDM">
         <activity
             android:name=".activities.FilmEditActivity"
-            android:exported="true" />
+            android:exported="true" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.ItemListActivity" />
+        </activity>
         <activity
             android:name=".activities.FilmDetailsActivity"
             android:exported="false"
