@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.method.ScrollingMovementMethod
 import android.text.style.UnderlineSpan
+import android.view.Menu
+import android.view.MenuItem
 import com.squareup.picasso.Picasso
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.ActivityFilmDetailsBinding
@@ -17,6 +19,7 @@ import java.time.format.FormatStyle
 
 class FilmDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFilmDetailsBinding
+    private lateinit var film : Film
 
     // currently only used on onCreate method, but leaving them outside of it in case they're needed on other methods.
     private var imageWidth: Int = 0
@@ -39,7 +42,7 @@ class FilmDetailsActivity : AppCompatActivity() {
         imageHeight = resources.getDimension(R.dimen.film_poster_details_height).toInt()
 
         // retrieve the corresponding film object from the intent
-        val film: Film = intent.getSerializableExtra(KEYS.FILM) as Film
+        film = intent.getSerializableExtra(KEYS.FILM) as Film
 
         // set the film data on the corresponding fields
         with(binding) {
@@ -68,6 +71,27 @@ class FilmDetailsActivity : AppCompatActivity() {
                     startActivity(callIntent)
                 }
             }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // inflate the corresponding menu for this activity
+        menuInflater.inflate(R.menu.menu_item_details, menu)
+        // this method expects true to be returned in order to show the menu
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            // move to edit activity, passing the film data through the intent extra
+            R.id.action_save_or_update -> {
+                val intent = Intent(this, FilmEditActivity::class.java)
+                intent.putExtra(KEYS.FILM, film)
+                startActivity(intent)
+                // TODO(does this return ever get executed?)
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }

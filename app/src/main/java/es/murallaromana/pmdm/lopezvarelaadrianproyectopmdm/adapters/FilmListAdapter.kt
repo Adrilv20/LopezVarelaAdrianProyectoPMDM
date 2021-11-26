@@ -11,6 +11,7 @@ import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.activities.FilmDetail
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.FilmItemListBinding
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.Film
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.KEYS
+import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.dateToString
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
@@ -18,8 +19,6 @@ class FilmListAdapter(val films : List<Film>, val context : Context) : RecyclerV
     // context required in order to fetch the dimensions for the images
     private var filmPosterWidth : Int = context.resources.getDimension(R.dimen.film_poster_list_width).toInt()
     private var filmPosterHeight: Int = context.resources.getDimension(R.dimen.film_poster_list_height).toInt()
-
-    private val dateFormat : DateTimeFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
 
     class FilmViewHolder(val binding : FilmItemListBinding) : RecyclerView.ViewHolder(binding.root) {
         // TODO(change the binding to a method inside the holder, instead of directing binding in Adapter.onBindViewHolder)
@@ -43,7 +42,7 @@ class FilmListAdapter(val films : List<Film>, val context : Context) : RecyclerV
         with(holder){
             tvTitle.setText(film.title)
             tvDirector.setText("Directed by: " + film.director)
-            tvReleaseDate.setText("Released on: " + dateFormat.format(film.releaseDate))
+            tvReleaseDate.setText("Released on: " + dateToString(film.releaseDate))
             Picasso.get().load(film.imageURL)
                 .resize(filmPosterWidth, filmPosterHeight).centerCrop()
                 .into(ivFilmPoster)
