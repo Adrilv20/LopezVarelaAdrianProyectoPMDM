@@ -12,8 +12,6 @@ import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.FilmItemL
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.Film
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.KEYS
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.dateToString
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 
 class FilmListAdapter(val films : List<Film>, val context : Context) : RecyclerView.Adapter<FilmListAdapter.FilmViewHolder>(){
     // context required in order to fetch the dimensions for the images
