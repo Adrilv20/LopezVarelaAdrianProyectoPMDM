@@ -6,35 +6,40 @@ import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.Film
 import kotlin.collections.ArrayList
 
 class App : Application() {
-    companion object GBL_STATE {
+    companion object GLB_STATE {
+        private var nextFilmId : Long = 5L;
         // We keep the inner state hidden to prevent introducing bugs by directly modifying the list from the activities
         // Instead we offer the different operations needed by the rest of the application from this companion object
         // TODO(change to use immutable list)
         private val films : ArrayList<Film> = ArrayList()
 
-        fun addFilm(film: Film) {
-            films.add(film)
+        fun addNewFilm(film: Film) {
+            this.films.add(film.copy().apply { id = nextFilmId++ })
         }
 
         fun removeFilm(film: Film) {
-            films.remove(film)
+            this.films.remove(film)
         }
 
         fun addAll(films : Collection<Film>) {
-            this.films.addAll(films)
+            films.forEach { this.films.add(it.copy()) }
         }
 
         /**
          * When asking for all the films, will return a copy of the list to prevent undesired modifications to the inner state of the app
-         * actual modifications to the state of the app (film list) should be performed through the add/remove methods
          */
-        fun getAllFilms() = films.toList()
+        fun getAllFilms() : List<Film> = this.films.map {it.copy()}
 
-        fun getFilmByIndex(index : Int) = this.films[index]
+        fun getFilmByIndex(index : Int) : Film = this.films[index]
+
+        fun updateFilm(film : Film) {
+            val index = films.indexOfFirst{it.id == film.id}
+            films[index] = film.copy()
+        }
     }
 
     override fun onCreate() {
-        GBL_STATE.addAll(FilmDAOMockImpl().getAllFilms())
+        GLB_STATE.addAll(FilmDAOMockImpl().getAllFilms())
         super.onCreate()
     }
 }

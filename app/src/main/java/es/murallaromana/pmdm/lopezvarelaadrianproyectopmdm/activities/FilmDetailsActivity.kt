@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.method.ScrollingMovementMethod
 import android.text.style.UnderlineSpan
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.squareup.picasso.Picasso
@@ -18,16 +19,20 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
 class FilmDetailsActivity : AppCompatActivity() {
+    companion object {
+        internal val FILM_EDIT_RESULT: Int = 1
+    }
+
     private lateinit var binding: ActivityFilmDetailsBinding
-    private lateinit var film : Film
+    private lateinit var film: Film
 
     // currently only used on onCreate method, but leaving them outside of it in case they're needed on other methods.
     private var imageWidth: Int = 0
     private var imageHeight: Int = 0
 
-    // TODO(move it to a companion so it's global for the whole app)
+    // Custom formatter for this activity
     private val dateFormat: DateTimeFormatter =
-        DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+            DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +42,16 @@ class FilmDetailsActivity : AppCompatActivity() {
         // set the title for the view
         setTitle(getString(R.string.filmDetailsViewTitle))
 
+        // retrieve the film passed from the parent activity
+        film = intent.getSerializableExtra(KEYS.FILM) as Film
+
         // get the image dimensions from the correspoding resources file for future use.
         imageWidth = resources.getDimension(R.dimen.film_poster_details_width).toInt()
         imageHeight = resources.getDimension(R.dimen.film_poster_details_height).toInt()
+    }
 
-        // retrieve the corresponding film object from the intent
-        film = intent.getSerializableExtra(KEYS.FILM) as Film
+    override fun onResume() {
+        super.onResume()
 
         // set the film data on the corresponding fields
         with(binding) {
@@ -56,23 +65,24 @@ class FilmDetailsActivity : AppCompatActivity() {
                 movementMethod = ScrollingMovementMethod()
             }
             Picasso.get().load(film.imageURL)
-                .resize(imageWidth, imageHeight)
-                .into(ivDetailsFilmPoster)
-            tvTelephone.apply{
+                    .resize(imageWidth, imageHeight)
+                    .into(ivDetailsFilmPoster)
+            tvTelephone.apply {
                 // Using an instance of SpannableString to make the phone number be underlined
-                // this will indicate the user that it can be pressed for an action
                 with(SpannableString(film.dirPhoneNum)) {
-                    setSpan(UnderlineSpan(),0, this.length,0)
+                    setSpan(UnderlineSpan(), 0, this.length, 0)
                     text = this
                 }
                 setOnClickListener {
-                    val callIntent = Intent(Intent.ACTION_DIAL)
-                    callIntent.setData(Uri.parse("tel:" + film.dirPhoneNum))
+                    val callIntent = Intent(Intent.ACTION_DIAL).apply {
+                        setData(Uri.parse("tel:" + film.dirPhoneNum))
+                    }
                     startActivity(callIntent)
                 }
             }
         }
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // inflate the corresponding menu for this activity
@@ -82,16 +92,30 @@ class FilmDetailsActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
+        return when (item.itemId) {
             // move to edit activity, passing the film data through the intent extra
             R.id.action_save_or_update -> {
                 val intent = Intent(this, FilmEditActivity::class.java)
                 intent.putExtra(KEYS.FILM, film)
-                startActivity(intent)
-                // TODO(does this return ever get executed?)
+                // TODO(If possible, change to the more recent way to pass results: https://developer.android.com/training/basics/intents/result )
+                // while deprecated, using this right now because of time constrains
+                startActivityForResult(intent, FILM_EDIT_RESULT)
                 return true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        Log.d("dataOnActivityResult", "received film was ${film}")
+
+        when (requestCode) {
+            FILM_EDIT_RESULT ->
+                if (resultCode == RESULT_OK) {
+                    // recover the edited film. Will be displaed by onResume
+                    film = data?.getSerializableExtra(KEYS.FILM) as Film
+                }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }

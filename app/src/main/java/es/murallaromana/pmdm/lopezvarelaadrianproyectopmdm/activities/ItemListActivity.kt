@@ -3,12 +3,10 @@ package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.App.GBL_STATE
+import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.App.GLB_STATE
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.adapters.FilmListAdapter
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.ActivityItemListBinding
@@ -25,16 +23,19 @@ class ItemListActivity : AppCompatActivity() {
         // set the screen title
         title = resources.getString(R.string.filmListViewTitle)
 
-        // TODO(finish the listener to move to new film screen with the FAB)
         val fab : FloatingActionButton = binding.fabAddItem
         fab.setOnClickListener {
             val newFilmIntent = Intent(this, FilmEditActivity::class.java)
             startActivity(newFilmIntent)
         }
 
-        // TODO(check if we may need to re-make this every time we get back into the list view.)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
         // retrieve the films data
-        val films = GBL_STATE.getAllFilms()
+        val films = GLB_STATE.getAllFilms()
         // set the layout manager and the adapter for the RecyclerView
         view = binding.rvFilmList
         view.layoutManager = LinearLayoutManager(this)
