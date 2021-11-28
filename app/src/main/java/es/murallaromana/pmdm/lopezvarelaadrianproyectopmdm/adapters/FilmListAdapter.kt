@@ -39,8 +39,8 @@ class FilmListAdapter(val films : List<Film>, val context : Context) : RecyclerV
         val film = films[position]
         with(holder){
             tvTitle.setText(film.title)
-            tvDirector.setText("Directed by: " + film.director)
-            tvReleaseDate.setText("Released on: " + dateToString(film.releaseDate))
+            tvDirector.setText(context.getString(R.string.directed_by_prefix) + " " + film.director)
+            tvReleaseDate.setText(context.getString(R.string.releasedOnPrefix) + ": " + dateToString(film.releaseDate))
             Picasso.get().load(film.imageURL)
                 .resize(filmPosterWidth, filmPosterHeight).centerCrop()
                 .into(ivFilmPoster)

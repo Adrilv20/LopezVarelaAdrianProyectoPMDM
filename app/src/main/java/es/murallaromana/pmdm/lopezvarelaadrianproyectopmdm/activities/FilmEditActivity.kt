@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.App.GLB_STATE
+import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.afterTextChanged
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.ActivityFilmEditBinding
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.Film
@@ -47,7 +48,7 @@ class FilmEditActivity : AppCompatActivity() {
             }
         } ?: run {
             creating = true
-            title = "New Film Info"
+            title = getString(R.string.newFilmActivityTitle)
             newFilm = Film()
         }
 
@@ -63,7 +64,7 @@ class FilmEditActivity : AppCompatActivity() {
                         setResult(RESULT_OK, Intent().apply { putExtra(KEYS.FILM, newFilm) })
                     }
                 }
-            } else Toast.makeText(this, "No changes were made", Toast.LENGTH_SHORT).show()
+            } else Toast.makeText(this, getString(R.string.editActNoChangesToast), Toast.LENGTH_SHORT).show()
             finish()
         }
     }
@@ -71,12 +72,12 @@ class FilmEditActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (filmChanged()) {
             AlertDialog.Builder(this)
-                    .setTitle("Exiting Edit Screen")
-                    .setMessage("Changes won't be saved. Are you sure you want to leave?")
-                    .setPositiveButton("Leave", { _, _ ->
+                    .setTitle(getString(R.string.editActLeaveTitle))
+                    .setMessage(getString(R.string.editActLeaveMessage))
+                    .setPositiveButton(getString(R.string.editActLeaveButton), { _, _ ->
                         super.onBackPressed()
                     })
-                    .setNegativeButton("Stay", null)
+                    .setNegativeButton(getString(R.string.editActStayButton), null)
                     .create().show()
         } else {
             super.onBackPressed()

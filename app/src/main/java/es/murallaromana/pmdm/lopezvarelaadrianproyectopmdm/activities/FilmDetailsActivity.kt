@@ -107,8 +107,6 @@ class FilmDetailsActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        Log.d("dataOnActivityResult", "received film was ${film}")
-
         when (requestCode) {
             FILM_EDIT_RESULT ->
                 if (resultCode == RESULT_OK) {

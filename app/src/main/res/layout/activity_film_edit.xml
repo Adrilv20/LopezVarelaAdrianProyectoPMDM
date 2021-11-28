@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Film's Info"
+            android:text="@string/filmInfoLabel"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +39,7 @@
                 android:id="@+id/etFilmTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Title" />
+                android:hint="@string/hintTitle" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -56,7 +56,7 @@
                 android:id="@+id/etDuration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Duration (mins)" />
+                android:hint="@string/hintDuration" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -73,7 +73,7 @@
                 android:id="@+id/etReleaseDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Release Date"
+                android:hint="@string/hintReleaseDate"
                 android:inputType="date" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Director's Info"
+            android:text="@string/directorInfoLabel"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -138,7 +138,7 @@
                 android:id="@+id/etTelephoneNomber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Phone Number"
+                android:hint="@string/hintPhoneNumber"
                 android:inputType="phone" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -157,7 +157,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="Others"
+            android:text="@string/othersFilmDetailLabel"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -177,7 +177,7 @@
                 android:id="@+id/etImageUrl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Url to the poster" />
+                android:hint="@string/hintImageUrl" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -195,7 +195,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:gravity="top"
-                android:hint="Summary"
+                android:hint="@string/hintSummary"
                 android:inputType="textMultiLine"
                 android:overScrollMode="always"
                 android:padding="8dp"
@@ -208,7 +208,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:contentDescription="Confirm film edit"
+            android:contentDescription="@string/editActFABContentDescription"
             android:gravity="bottom|center"
             app:icon="@android:drawable/ic_menu_save"
             android:layout_marginTop="16dp"

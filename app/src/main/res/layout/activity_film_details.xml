@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivDetailsFilmPoster"
-        tools:text="Title of the film" />
+        tools:text="@string/toolsTitleFilm" />
 
     <View
         android:id="@+id/divider"
@@ -59,8 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:hint="ReleaseDate"
-        android:text="TextView"
+        android:hint="@string/hintReleaseDate"
         android:textAlignment="center"
         android:textColor="@color/text_subitem"
         app:layout_constraintEnd_toEndOf="@+id/ivReleaseDateIcon"
@@ -104,7 +103,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:text="Released on"
+        android:text="@string/releaseDateLabel"
         app:layout_constraintEnd_toEndOf="@+id/ivReleaseDateIcon"
         app:layout_constraintStart_toStartOf="@+id/ivReleaseDateIcon"
         app:layout_constraintTop_toBottomOf="@+id/ivReleaseDateIcon" />
@@ -114,7 +113,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:text="Duration"
+        android:text="@string/durationLabel"
         app:layout_constraintEnd_toEndOf="@+id/ivDurationIcon"
         app:layout_constraintStart_toStartOf="@+id/ivDurationIcon"
         app:layout_constraintTop_toBottomOf="@+id/ivDurationIcon" />

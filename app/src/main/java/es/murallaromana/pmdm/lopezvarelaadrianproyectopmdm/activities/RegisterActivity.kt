@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.UserData
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.ActivityRegisterBinding
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.KEYS
@@ -18,7 +19,7 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        title = "Creating new account"
+        title = getString(R.string.registerActTitle)
 
         // set the process of data validation when pressing Sign button
         btnSignup = binding.btnSignUp
@@ -48,7 +49,7 @@ class RegisterActivity : AppCompatActivity() {
                 onBackPressed()
             } else {
                 // TODO(modify validation process to give info on the field that wasn't valid)
-                Toast.makeText(this, "Some value is incorrect", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.registerActErrorToast), Toast.LENGTH_LONG).show()
             }
         }
     }

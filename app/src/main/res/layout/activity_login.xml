@@ -19,7 +19,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="64dp"
         android:fontFamily="sans-serif"
-        android:text="Log in"
+        android:text="@string/loginText"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textSize="24sp"
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="104dp"
         android:layout_marginEnd="40dp"
-        android:text="Register"
+        android:text="@string/registerButton"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:text="Log in"
+        android:text="@string/loginButton"
         app:layout_constraintBottom_toBottomOf="@+id/btnRegister"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
         app:layout_constraintTop_toTopOf="@+id/btnRegister" />
@@ -64,7 +64,7 @@
             android:id="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username" />
+            android:hint="@string/hintUsername" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -80,7 +80,7 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:hint="@string/hintPassword"
             android:inputType="textPassword"
             android:textAlignment="viewStart" />
     </com.google.android.material.textfield.TextInputLayout>
