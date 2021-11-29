@@ -44,4 +44,5 @@
     <string name="registration_error_min_chars_password">The password needs at least %d characters.</string>
     <string name="registration_error_max_chars_password">The password can\'t have more than %d characters.</string>
     <string name="registration_error_empty_field">The field %s can\'t be empty.</string>
+    <string name="editActFABText">Save</string>
 </resources>
