@@ -1,12 +1,16 @@
 package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm
 
 import android.app.Application
+import android.content.Context
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.dao.FilmDAOMockImpl
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.Film
 import kotlin.collections.ArrayList
 
 class App : Application() {
     companion object GLB_STATE {
+        // Static context used by utility classes to access resources
+        lateinit var context : Context
+
         private var nextFilmId : Long = 5L;
         // We keep the inner state hidden to prevent introducing bugs by directly modifying the list from the activities
         // Instead we offer the different operations needed by the rest of the application from this companion object
@@ -40,7 +44,8 @@ class App : Application() {
     }
 
     override fun onCreate() {
-        GLB_STATE.addAll(FilmDAOMockImpl().getAllFilms())
         super.onCreate()
+        GLB_STATE.addAll(FilmDAOMockImpl().getAllFilms())
+        GLB_STATE.context = this
     }
 }

@@ -1,6 +1,8 @@
 package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities
 
 import android.content.Context
+import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.App.GLB_STATE
+import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
 
 class UserData(val name: String, val email: String, val password: String, val dupPassword: String) {
     private companion object VALIDATION_UTILS {
@@ -8,14 +10,14 @@ class UserData(val name: String, val email: String, val password: String, val du
         val MIN_CHARS_PASSWORD: Int = 6
         val MAX_CHARS_PASSWORD: Int = 16
         // TODO(see how to move these strings to resource files)
-        val FIELD_NAME = "susername"
-        val FIELD_EMAIL = "email"
-        val FIELD_PASSWORD = "password"
-        val EMPTY_FIELD_MESSAGE = "The field %s can't be empty."
-        val NON_MATCHING_PASSWORDS_MESSAGE = "The introduced passwords don't match"
-        val NON_VALID_EMAIL_MESSAGE= "The given email is not valid."
-        val NOT_ENOUGH_CHARS_PASSWORD_MESSAGE = "The password needs at least ${MIN_CHARS_PASSWORD} characters."
-        val TOO_MANY_CHARS_PASSWORD = "The password can't have more than ${MAX_CHARS_PASSWORD} characters."
+        val FIELD_NAME = GLB_STATE.context.getString(R.string.usernameFieldName)
+        val FIELD_EMAIL = GLB_STATE.context.getString(R.string.emailFieldName)
+        val FIELD_PASSWORD = GLB_STATE.context.getString(R.string.passwordFieldName)
+        val EMPTY_FIELD_MESSAGE = GLB_STATE.context.getString(R.string.registration_error_empty_field)
+        val NON_MATCHING_PASSWORDS_MESSAGE = GLB_STATE.context.getString(R.string.registration_error_non_matching_passwords)
+        val NON_VALID_EMAIL_MESSAGE= GLB_STATE.context.getString(R.string.registration_error_non_valid_email)
+        val NOT_ENOUGH_CHARS_PASSWORD_MESSAGE = GLB_STATE.context.getString(R.string.registration_error_min_chars_password, MIN_CHARS_PASSWORD)
+        val TOO_MANY_CHARS_PASSWORD = GLB_STATE.context.getString(R.string.registration_error_max_chars_password, MAX_CHARS_PASSWORD)
         val EMAIL_REGEX: Regex = Regex("^[A-ZÑa-zñ0-9+_.-]+@[a-zñ0-9.-]+$")
     }
 
@@ -36,7 +38,7 @@ class UserData(val name: String, val email: String, val password: String, val du
             errorMessage = EMPTY_FIELD_MESSAGE.format(FIELD_PASSWORD)
         } else if (password.length < MIN_CHARS_PASSWORD) {
             errorMessage = NOT_ENOUGH_CHARS_PASSWORD_MESSAGE
-        } else if (password.length < MIN_CHARS_PASSWORD) {
+        } else if (password.length > MAX_CHARS_PASSWORD) {
             errorMessage = TOO_MANY_CHARS_PASSWORD
         } else if (password != dupPassword) {
             errorMessage = NON_MATCHING_PASSWORDS_MESSAGE

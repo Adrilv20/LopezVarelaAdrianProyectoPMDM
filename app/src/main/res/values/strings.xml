@@ -49,4 +49,13 @@
     <string name="registerActTitle">Creating new account</string>
     <string name="registerActErrorToast">Some value is incorrect</string>
     <string name="releasedOnPrefix">Released on</string>
+    <string name="usernameFieldName">username</string>
+    <string name="emailFieldName">email</string>
+    <string name="passwordFieldName">password</string>
+    <string name="registration_error_non_matching_passwords">The introduced passwords don\'t match</string>
+    <string name="registration_error_non_valid_email">The given email is not valid.</string>
+    <!-- some of the following texts will be formatted internally, thus no $1-->
+    <string name="registration_error_min_chars_password">The password needs at least %d characters.</string>
+    <string name="registration_error_max_chars_password">The password can\'t have more than %d characters.</string>
+    <string name="registration_error_empty_field">The field %s can\'t be empty.</string>
 </resources>
