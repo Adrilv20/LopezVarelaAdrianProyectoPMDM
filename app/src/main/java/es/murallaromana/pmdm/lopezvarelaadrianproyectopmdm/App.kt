@@ -18,7 +18,7 @@ class App : Application() {
         private val films : ArrayList<Film> = ArrayList()
 
         fun addNewFilm(film: Film) {
-            this.films.add(film.copy().apply { id = nextFilmId++ })
+            this.films.add(film.copy().apply { id = ++nextFilmId })
         }
 
         fun removeFilm(id: Long) {

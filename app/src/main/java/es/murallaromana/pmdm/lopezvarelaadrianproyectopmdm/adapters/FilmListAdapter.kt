@@ -43,9 +43,14 @@ class FilmListAdapter(private var films : List<Film>, val context : Context) : R
             tvTitle.setText(film.title)
             tvDirector.setText(context.getString(R.string.directed_by_prefix) + " " + film.director)
             tvReleaseDate.setText(context.getString(R.string.releasedOnPrefix) + ": " + dateToString(film.releaseDate))
-            Picasso.get().load(film.imageURL)
-                .resize(filmPosterWidth, filmPosterHeight).centerCrop()
-                .into(ivFilmPoster)
+            try {
+                Picasso.get().load(film.imageURL)
+                    .resize(filmPosterWidth, filmPosterHeight).centerCrop()
+                    .into(ivFilmPoster)
+            } catch (ex : IllegalArgumentException){
+                // since this is a mock, not doing anything and simply not setting the image if the url was not vlaid
+            }
+
         }
         // set the listener to navigate to the details page of the film
         holder.itemView.setOnClickListener {
