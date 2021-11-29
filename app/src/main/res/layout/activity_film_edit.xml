@@ -215,6 +215,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:contentDescription="@string/editActFABContentDescription"
+        android:text="@string/editActFABText"
         android:gravity="bottom|center"
         app:icon="@android:drawable/ic_menu_save"
         android:layout_alignParentRight="true"
