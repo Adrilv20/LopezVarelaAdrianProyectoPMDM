@@ -89,7 +89,7 @@ class FilmEditActivity : AppCompatActivity() {
             android.R.id.home -> onBackPressed()
             else -> return super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
+        return true // leaving super.onOptionsItemSelected(item) will call to onBackPressed for button android.R.id.home
     }
 
     private fun toggleDirtyWatcherOnEditTexts() {
