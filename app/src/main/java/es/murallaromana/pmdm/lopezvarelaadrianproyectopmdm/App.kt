@@ -17,8 +17,9 @@ class App : Application() {
             this.films.add(film.copy().apply { id = nextFilmId++ })
         }
 
-        fun removeFilm(film: Film) {
-            this.films.remove(film)
+        fun removeFilm(id: Long) {
+            val index = films.indexOfFirst{it.id == id}
+            this.films.removeAt(index)
         }
 
         fun addAll(films : Collection<Film>) {

@@ -1,11 +1,13 @@
 package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.adapters
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.App.GLB_STATE
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.activities.FilmDetailsActivity
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.FilmItemListBinding
@@ -13,7 +15,7 @@ import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.Film
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.KEYS
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.dateToString
 
-class FilmListAdapter(val films : List<Film>, val context : Context) : RecyclerView.Adapter<FilmListAdapter.FilmViewHolder>(){
+class FilmListAdapter(private var films : List<Film>, val context : Context) : RecyclerView.Adapter<FilmListAdapter.FilmViewHolder>(){
     // context required in order to fetch the dimensions for the images
     private var filmPosterWidth : Int = context.resources.getDimension(R.dimen.film_poster_list_width).toInt()
     private var filmPosterHeight: Int = context.resources.getDimension(R.dimen.film_poster_list_height).toInt()
@@ -51,6 +53,27 @@ class FilmListAdapter(val films : List<Film>, val context : Context) : RecyclerV
                 putExtra(KEYS.FILM, film)
             }
             it.context.startActivity(intent)
+        }
+
+        // set delete mechanism
+        holder.itemView.setOnLongClickListener {
+            var result : Boolean = false
+            AlertDialog.Builder(holder.itemView.context)
+                .setTitle("Deleting film")
+                .setMessage("About to delete film " + film.title)
+                .setPositiveButton("Delete", {_,_ ->
+                    // update the global state
+                    GLB_STATE.removeFilm(film.id)
+                    // get the new state and update the list of items of the adapter
+                    // IMPORTANT: not altering the inner state of the adapter results on a malformed list
+                    this.films = GLB_STATE.getAllFilms()
+                    // notify the adapter so it updates the rendered list
+                    this.notifyItemRemoved(position)
+                    result = true
+                })
+                .setNegativeButton("Keep", null)
+                .create().show()
+            result
         }
     }
 
