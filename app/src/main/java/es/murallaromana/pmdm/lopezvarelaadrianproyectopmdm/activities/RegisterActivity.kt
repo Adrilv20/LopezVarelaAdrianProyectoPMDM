@@ -49,7 +49,7 @@ class RegisterActivity : AppCompatActivity() {
                 onBackPressed()
             } else {
                 // TODO(modify validation process to give info on the field that wasn't valid)
-                Toast.makeText(this, getString(R.string.registerActErrorToast), Toast.LENGTH_LONG).show()
+                Toast.makeText(this, user.getErrorMessage(), Toast.LENGTH_LONG).show()
             }
         }
     }
