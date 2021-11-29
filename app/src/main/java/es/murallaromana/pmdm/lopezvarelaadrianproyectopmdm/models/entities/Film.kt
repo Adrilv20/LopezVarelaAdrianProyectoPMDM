@@ -13,5 +13,6 @@ data class Film(
         var dirPhoneNum: String = "",
         var durationMins: Int = -1,
         var releaseDate: LocalDate = LocalDate.MIN,
-        var imageURL: String = ""
+        var imageURL: String = "",
+        var summary: String = ""
 ) : Serializable {}

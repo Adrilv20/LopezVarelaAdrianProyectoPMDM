@@ -61,7 +61,7 @@ class FilmDetailsActivity : AppCompatActivity() {
             // TODO(change duration format to "Xh Ymin")
             tvDuration.text = film.durationMins.toString() + " mins"
             tvDescription.apply {
-                text = resources.getString(R.string.lorem_ipsum)
+                text = film.summary
                 movementMethod = ScrollingMovementMethod()
             }
             Picasso.get().load(film.imageURL)

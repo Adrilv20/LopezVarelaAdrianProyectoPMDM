@@ -44,7 +44,7 @@ class FilmEditActivity : AppCompatActivity() {
                 etReleaseDate.setText(dateToString(it.releaseDate))
                 etTelephoneNomber.setText(it.dirPhoneNum)
                 etImageUrl.setText(it.imageURL)
-                etFilmSummary.setText("To be implemented") // TODO(unmock the summaries)
+                etFilmSummary.setText(it.summary)
             }
         } ?: run {
             creating = true
@@ -107,7 +107,7 @@ class FilmEditActivity : AppCompatActivity() {
             etReleaseDate.afterTextChanged { if (dateInputRegex.matches(it)) newFilm.releaseDate = dateFromString(it) }
             etTelephoneNomber.afterTextChanged { newFilm.dirPhoneNum = it }
             etImageUrl.afterTextChanged { newFilm.imageURL = it }
-//            etFilmSummary.afterTextChanged {  }
+            etFilmSummary.afterTextChanged { newFilm.summary = it }
         }
     }
 
