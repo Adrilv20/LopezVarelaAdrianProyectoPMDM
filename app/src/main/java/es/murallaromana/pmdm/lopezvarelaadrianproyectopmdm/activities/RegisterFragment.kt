@@ -1,25 +1,29 @@
 package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
+import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.FragmentRegisterBinding
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.UserData
-import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.ActivityRegisterBinding
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.KEYS
 
-class RegisterActivity : AppCompatActivity() {
-
-    private lateinit var binding : ActivityRegisterBinding
+class RegisterFragment : Fragment() {
+    private lateinit var binding : FragmentRegisterBinding
     private lateinit var btnSignup: Button
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityRegisterBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentRegisterBinding.inflate(layoutInflater)
 
-        title = getString(R.string.registerActTitle)
+        activity?.title = getString(R.string.registerActTitle)
 
         // set the process of data validation when pressing Sign button
         btnSignup = binding.btnSignUp
@@ -39,17 +43,24 @@ class RegisterActivity : AppCompatActivity() {
 
             if (user.isValidData()) {
                 // Store username and password on sharedPreferences
-                val sharedPref = getSharedPreferences(KEYS.LOGIN_DATA, MODE_PRIVATE)
-                with (sharedPref.edit()) {
-                    putString(KEYS.USERNAME, user.name)
-                    putString(KEYS.PASSWORD, user.password)
+                val sharedPref = activity?.getSharedPreferences(
+                    KEYS.LOGIN_DATA,
+                    AppCompatActivity.MODE_PRIVATE
+                )
+                with (sharedPref!!.edit()) {
+                    putString(es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.KEYS.USERNAME, user.name)
+                    putString(es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.KEYS.PASSWORD, user.password)
                     apply()
                 }
                 // go back to the login screen
-                onBackPressed()
+                activity?.onBackPressed()
             } else {
-                Toast.makeText(this, user.getErrorMessage(), Toast.LENGTH_LONG).show()
+                Toast.makeText(activity, user.getErrorMessage(), Toast.LENGTH_LONG).show()
             }
         }
+
+        // Inflate the layout for this fragment. TODO(use binding instead)
+        val views = inflater.inflate(R.layout.fragment_register, container, false)
+        return views
     }
 }

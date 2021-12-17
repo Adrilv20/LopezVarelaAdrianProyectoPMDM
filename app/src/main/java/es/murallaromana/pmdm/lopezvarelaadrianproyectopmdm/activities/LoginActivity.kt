@@ -3,7 +3,6 @@ package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
