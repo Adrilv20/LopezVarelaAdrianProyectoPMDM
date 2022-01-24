@@ -5,9 +5,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableString
-import android.text.method.ScrollingMovementMethod
 import android.text.style.UnderlineSpan
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.squareup.picasso.Picasso
@@ -60,10 +58,7 @@ class FilmDetailsActivity : AppCompatActivity() {
             tvReleaseDate.text = dateFormat.format(film.releaseDate)
             // TODO(change duration format to "Xh Ymin")
             tvDuration.text = film.durationMins.toString() + " mins"
-            tvDescription.apply {
-                text = film.summary
-                movementMethod = ScrollingMovementMethod()
-            }
+            tvDescription.text = film.summary
             Picasso.get().load(film.imageURL)
                     .resize(imageWidth, imageHeight)
                     .into(ivDetailsFilmPoster)
