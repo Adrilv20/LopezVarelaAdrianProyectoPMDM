@@ -23,8 +23,6 @@ class LoginActivity : AppCompatActivity() {
         // make the register button redirect to the corresponding screen
         btnRegister = binding.btnRegister
         btnRegister.setOnClickListener {
-            Toast.makeText(this, getString(R.string.redirect_to_login_message), Toast.LENGTH_SHORT)
-                .show()
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
