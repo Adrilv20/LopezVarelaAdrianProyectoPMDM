@@ -43,6 +43,8 @@
                     android:id="@+id/etFilmTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1"
                     android:hint="@string/hintTitle" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -60,6 +62,7 @@
                     android:id="@+id/etDuration"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="number"
                     android:hint="@string/hintDuration" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -123,6 +126,8 @@
                     android:id="@+id/etDirectorName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1"
                     android:hint="Name" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -181,6 +186,8 @@
                     android:id="@+id/etImageUrl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1"
                     android:hint="@string/hintImageUrl" />
             </com.google.android.material.textfield.TextInputLayout>
 
