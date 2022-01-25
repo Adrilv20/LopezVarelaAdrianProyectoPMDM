@@ -1,10 +1,15 @@
 package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities
 
 import android.content.Context
+import com.google.gson.annotations.Expose
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.App.GLB_STATE
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
 
-class UserData(val name: String, val email: String, val password: String, val dupPassword: String) {
+class UserData(
+    val name: String,
+    @Expose(serialize = true) val email: String,
+    @Expose(serialize = true) val password: String,
+    val dupPassword: String) {
     private companion object VALIDATION_UTILS {
         // should these values be configurable through a resources file rather than here?
         val MIN_CHARS_PASSWORD: Int = 6
