@@ -8,10 +8,14 @@ import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.UserData
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.ActivityRegisterBinding
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.KEYS
+import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityRegisterBinding
+    private lateinit var binding: ActivityRegisterBinding
     private lateinit var btnSignup: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +28,10 @@ class RegisterActivity : AppCompatActivity() {
         // set the process of data validation when pressing Sign button
         btnSignup = binding.btnSignUp
         btnSignup.setOnClickListener {
-            val username : String; val email: String; val password: String; val duplicatedPassword : String
+            val username: String;
+            val email: String;
+            val password: String;
+            val duplicatedPassword: String
             // extract the input values from the textInputLayouts
             with(binding) {
                 // IMPORTANT:  the text itself is within editText.text.
@@ -38,17 +45,43 @@ class RegisterActivity : AppCompatActivity() {
             val user = UserData(username, email, password, duplicatedPassword)
 
             if (user.isValidData()) {
-                // Store username and password on sharedPreferences
-                val sharedPref = getSharedPreferences(KEYS.LOGIN_DATA, MODE_PRIVATE)
-                with (sharedPref.edit()) {
-                    putString(KEYS.USERNAME, user.name)
-                    putString(KEYS.PASSWORD, user.password)
-                    apply()
-                }
-                // go back to the login screen
-                onBackPressed()
+                // prepare call to the backend to sing up the user
+                val singupCall = RetrofitClient.instance.userSingUp(user)
+                singupCall.enqueue(object : Callback<Unit> {
+                    override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                        if (response.isSuccessful) {
+                            // sing up was successful
+                            // Store username and password on sharedPreferences
+                            val sharedPref = getSharedPreferences(KEYS.LOGIN_DATA, MODE_PRIVATE)
+                            with(sharedPref.edit()) {
+
+                                putString(KEYS.USERNAME, user.email)
+                                putString(KEYS.PASSWORD, user.password)
+                                apply()
+                            }
+                            // go back to the login screen
+                            onBackPressed()
+                        } else {
+                            Toast.makeText(
+                                this@RegisterActivity,
+                                "Server side error while trying to sing up.",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            return
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Unit>, t: Throwable) {
+                        Toast.makeText(
+                            this@RegisterActivity,
+                            "Unexpected error during sinup:" + t.toString(),
+                            Toast.LENGTH_LONG
+                        ).show()
+                        return
+                    }
+                })
             } else {
-                // TODO(modify validation process to give info on the field that wasn't valid)
+                // error message in case the user info doesn't pass the local validation
                 Toast.makeText(this, user.getErrorMessage(), Toast.LENGTH_LONG).show()
             }
         }
