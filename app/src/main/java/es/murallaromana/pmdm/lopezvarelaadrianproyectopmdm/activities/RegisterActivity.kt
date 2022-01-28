@@ -46,6 +46,7 @@ class RegisterActivity : AppCompatActivity() {
 
             if (user.isValidData()) {
                 // prepare call to the backend to sing up the user
+                // TODO change button to "loading" icon
                 val singupCall = RetrofitClient.instance.userSingUp(user)
                 singupCall.enqueue(object : Callback<Unit> {
                     override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
@@ -54,9 +55,7 @@ class RegisterActivity : AppCompatActivity() {
                             // Store username and password on sharedPreferences
                             val sharedPref = getSharedPreferences(KEYS.LOGIN_DATA, MODE_PRIVATE)
                             with(sharedPref.edit()) {
-
-                                putString(KEYS.USERNAME, user.email)
-                                putString(KEYS.PASSWORD, user.password)
+                                putString(KEYS.EMAIL, user.email)
                                 apply()
                             }
                             // go back to the login screen

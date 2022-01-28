@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.ActivityLoginBinding
+import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.LoginData
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.Token
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.KEYS
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.RetrofitClient
@@ -33,8 +34,9 @@ class LoginActivity : AppCompatActivity() {
         // no actual account check performed since this is mostly a mock application
         btnLogin = binding.btnLogin
         btnLogin.setOnClickListener {
-            val loginCall = RetrofitClient.instance.userLogIn(binding.etUsername.text.toString(),
-                binding.etPassword.text.toString())
+            val loginCall =
+                RetrofitClient.instance
+                .userLogIn(LoginData(binding.etEmail.text.toString().trim(), binding.etPassword.text.toString().trim()))
             loginCall.enqueue(object : Callback<Token> {
                 override fun onResponse(call: Call<Token>, response: Response<Token>) {
                     if (response.isSuccessful) {
@@ -45,6 +47,7 @@ class LoginActivity : AppCompatActivity() {
                             putString(KEYS.TOKEN, token.token)
                             apply()
                         }
+                        startActivity(Intent(this@LoginActivity,ItemListActivity::class.java))
                     } else {
                         Toast.makeText(
                             this@LoginActivity,
@@ -64,7 +67,6 @@ class LoginActivity : AppCompatActivity() {
                     return
                 }
             })
-            startActivity(Intent(this,ItemListActivity::class.java))
         }
     }
 
@@ -73,10 +75,8 @@ class LoginActivity : AppCompatActivity() {
         // load the corresponding username and password on this screen's fields.
         // TODO FULLY CHANGE LOGIN TO WORK WITH EMAIL INSTEAD OF USERNANE. Right now just slightly adapted to test api calls
         val sharedPref = getSharedPreferences(KEYS.LOGIN_DATA, MODE_PRIVATE)
-        val username: String? = sharedPref.getString(KEYS.USERNAME, "").toString()
-        val password: String? = sharedPref.getString(KEYS.PASSWORD, "").toString()
-        binding.etUsername.setText(username)
-        binding.etPassword.setText(password)
+        val email: String? = sharedPref.getString(KEYS.EMAIL, "").toString()
+        binding.etEmail.setText(email)
         super.onResume()
     }
 }
