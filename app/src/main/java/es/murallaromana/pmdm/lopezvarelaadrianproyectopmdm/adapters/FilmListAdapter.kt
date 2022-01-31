@@ -68,7 +68,7 @@ class FilmListAdapter(private var films : List<Film>, val context : Context) : R
                 .setMessage("About to delete film " + film.title)
                 .setPositiveButton("Delete", {_,_ ->
                     // update the global state
-                    GLB_STATE.removeFilm(film.id)
+                    GLB_STATE.removeFilm(film.id.toLong())
                     // get the new state and update the list of items of the adapter
                     // IMPORTANT: not altering the inner state of the adapter results on a malformed list
                     this.films = GLB_STATE.getAllFilms()

@@ -10,6 +10,7 @@ import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.Login
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.Token
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.KEYS
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.RetrofitClient
+import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.SessionManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,16 +38,12 @@ class LoginActivity : AppCompatActivity() {
             val loginCall =
                 RetrofitClient.instance
                 .userLogIn(LoginData(binding.etEmail.text.toString().trim(), binding.etPassword.text.toString().trim()))
+
             loginCall.enqueue(object : Callback<Token> {
                 override fun onResponse(call: Call<Token>, response: Response<Token>) {
                     if (response.isSuccessful) {
                         val token = response.body() as Token
-                        val sharedPref = getSharedPreferences(KEYS.TOKEN, MODE_PRIVATE)
-                        with(sharedPref.edit()) {
-                            // TODO change to store token object?
-                            putString(KEYS.TOKEN, token.token)
-                            apply()
-                        }
+                        SessionManager.saveAuthToken(token.token)
                         startActivity(Intent(this@LoginActivity,ItemListActivity::class.java))
                     } else {
                         Toast.makeText(

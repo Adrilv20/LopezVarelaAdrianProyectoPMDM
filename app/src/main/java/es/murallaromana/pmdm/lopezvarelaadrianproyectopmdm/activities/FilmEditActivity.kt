@@ -58,7 +58,7 @@ class FilmEditActivity : AppCompatActivity() {
         binding.floatingActionButton.setOnClickListener {
             if (filmChanged()) {
                 when (newFilm.id) {
-                    -1L -> GLB_STATE.addNewFilm(newFilm)
+                    "-1" -> GLB_STATE.addNewFilm(newFilm)
                     else -> {
                         GLB_STATE.updateFilm(newFilm)
                         setResult(RESULT_OK, Intent().apply { putExtra(KEYS.FILM, newFilm) })

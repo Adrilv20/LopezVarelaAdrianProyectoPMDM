@@ -2,6 +2,8 @@ package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm
 
 import android.app.Application
 import android.content.Context
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.dao.FilmDAOMockImpl
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.Film
 import kotlin.collections.ArrayList
@@ -18,11 +20,11 @@ class App : Application() {
         private val films : ArrayList<Film> = ArrayList()
 
         fun addNewFilm(film: Film) {
-            this.films.add(film.copy().apply { id = ++nextFilmId })
+            this.films.add(film.copy().apply { id = (nextFilmId+1).toString() })
         }
 
         fun removeFilm(id: Long) {
-            val index = films.indexOfFirst{it.id == id}
+            val index = films.indexOfFirst{it.id == id.toString()}
             this.films.removeAt(index)
         }
 
