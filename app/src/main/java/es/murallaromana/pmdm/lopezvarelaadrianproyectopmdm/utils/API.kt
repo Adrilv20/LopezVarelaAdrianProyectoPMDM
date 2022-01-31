@@ -9,7 +9,19 @@ import retrofit2.http.*
 
 interface API {
     @GET("movies")
-    fun getPeliculas(): Call<List<Film>>
+    fun getFilms(): Call<List<Film>>
+
+    @GET("movies/{id}")
+    fun getFilmById(@Path("id") id: String)
+
+    @POST("movies/")
+    fun createFilm(@Body film : Film)
+
+    @PUT("movies/")
+    fun editFilm(@Body film : Film)
+
+    @DELETE("movies/{id}")
+    fun deleteFilm(@Path("id") id : String)
 
     @Headers("No-Authentication: true")
     @POST("users/signup")

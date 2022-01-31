@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.App.GLB_STATE
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.adapters.FilmListAdapter
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.ActivityItemListBinding
@@ -42,7 +41,7 @@ class ItemListActivity : AppCompatActivity() {
         super.onResume()
 
         // fetch movies from the API
-        val moviesCall = RetrofitClient.instance.getPeliculas()
+        val moviesCall = RetrofitClient.instance.getFilms()
         moviesCall.enqueue(object : Callback<List<Film>>{
             override fun onResponse(call: Call<List<Film>>, response: Response<List<Film>>) {
                 if(response.isSuccessful) {
