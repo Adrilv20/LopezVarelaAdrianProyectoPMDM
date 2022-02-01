@@ -46,4 +46,6 @@
     <string name="registration_error_empty_field">The field %s can\'t be empty.</string>
     <string name="editActFABText">Save</string>
     <string name="film_summary_hint">Summary</string>
+    <string name="action_log_out">Log Out</string>
+    <string name="action_edit_film">Edit</string>
 </resources>

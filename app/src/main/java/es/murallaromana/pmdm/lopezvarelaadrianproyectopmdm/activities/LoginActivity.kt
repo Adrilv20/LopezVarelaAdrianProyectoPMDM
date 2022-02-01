@@ -25,6 +25,12 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // if there's an authToken stored, skip straight to the list of movies
+        SessionManager.fetchAuthToken()?.let {
+            goToListOfFilms()
+        }
+        // "else" sets up the login screen
+
         // make the register button redirect to the corresponding screen
         btnRegister = binding.btnRegister
         btnRegister.setOnClickListener {
@@ -44,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val token = response.body() as Token
                         SessionManager.saveAuthToken(token.token)
-                        startActivity(Intent(this@LoginActivity,ItemListActivity::class.java))
+                        goToListOfFilms()
                     } else {
                         Toast.makeText(
                             this@LoginActivity,
@@ -76,4 +82,6 @@ class LoginActivity : AppCompatActivity() {
         binding.etEmail.setText(email)
         super.onResume()
     }
+
+    private fun goToListOfFilms() = startActivity(Intent(this@LoginActivity,ItemListActivity::class.java))
 }

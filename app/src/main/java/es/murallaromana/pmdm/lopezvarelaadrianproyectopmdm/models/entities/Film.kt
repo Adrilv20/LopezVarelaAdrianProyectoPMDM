@@ -4,9 +4,8 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.time.LocalDate
 
-// TODO(Changed to data class for the auto implementation of equals and such methods. Search if it may have any demerit)
 // Default values to get an empty constructor.
-// Changed from val to var in order to modify the film on FilmEditActivity. TODO(search better approach)
+// Changed from val to var in order to modify the film on FilmEditActivity.
 data class Film(
         var id: String = "-1",
         var title: String = "",
@@ -16,6 +15,7 @@ data class Film(
         var dirPhoneNum: String = "",
         @SerializedName("runtimeMinutes")
         var durationMins: Int = -1,
+        // TODO ask for change on the back to include full date?
         var releaseDate: LocalDate = LocalDate.MIN,
         @SerializedName("imageUrl")
         var imageURL: String = "",

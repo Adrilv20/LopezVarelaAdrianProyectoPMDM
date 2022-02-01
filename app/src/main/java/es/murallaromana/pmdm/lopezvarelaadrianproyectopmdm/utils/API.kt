@@ -30,6 +30,4 @@ interface API {
     @Headers("No-Authentication: true")
     @POST("users/login")
     fun userLogIn(@Body loginData : LoginData) : Call<Token>
-
-    // TODO: declarar todos los métodos del API siguiendo la documentación
 }

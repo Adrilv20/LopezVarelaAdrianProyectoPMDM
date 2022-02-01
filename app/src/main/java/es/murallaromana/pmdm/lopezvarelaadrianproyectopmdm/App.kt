@@ -14,9 +14,9 @@ class App : Application() {
         lateinit var context : Context
 
         private var nextFilmId : Long = 5L;
+
         // We keep the inner state hidden to prevent introducing bugs by directly modifying the list from the activities
         // Instead we offer the different operations needed by the rest of the application from this companion object
-        // TODO(change to use immutable list)
         private val films : ArrayList<Film> = ArrayList()
 
         fun addNewFilm(film: Film) {

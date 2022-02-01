@@ -6,6 +6,9 @@ import okhttp3.Dispatcher
 import okhttp3.Interceptor
 import okhttp3.Response
 
+/**
+ * Custom interceptor to include the auth token on all API calls that don't have the No-Authentication header
+ */
 class AuthInterceptor() : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         // case no auth header needed

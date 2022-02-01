@@ -95,7 +95,7 @@ class FilmDetailsActivity : AppCompatActivity() {
                 // TODO(If possible, change to the more recent way to pass results: https://developer.android.com/training/basics/intents/result )
                 // while deprecated, using this right now because of time constrains
                 startActivityForResult(intent, FILM_EDIT_RESULT)
-                return true
+                true
             }
             else -> super.onOptionsItemSelected(item)
         }

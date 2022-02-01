@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.App
 
+/**
+ * Singleton in charge or managing the auth token through Shared Preferences.
+ */
 object SessionManager {
     private var prefs : SharedPreferences = App.GLB_STATE.context.getSharedPreferences(KEYS.TOKEN, Context.MODE_PRIVATE)
 
@@ -26,10 +29,10 @@ object SessionManager {
      * Remove the stored token from sharedPreferences
      */
     fun clearToken() {
-        with(prefs.edit()){
+        with(prefs.edit()) {
             remove(KEYS.TOKEN)
+            commit()
         }
-        // TODO should we return to login here?
     }
 
 }
