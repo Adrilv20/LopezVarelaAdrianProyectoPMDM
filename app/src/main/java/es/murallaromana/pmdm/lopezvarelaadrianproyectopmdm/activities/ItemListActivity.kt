@@ -59,6 +59,9 @@ class ItemListActivity : AppCompatActivity() {
                     view.setHasFixedSize(true)
                 } else {
                     handleErrorFetchingFilms("Error while fetching the films: " + response.errorBody()?.string())
+                    // since there's no direct way to tell if the error was due to expired token, we'll have to asume so
+                    // token got already cleared by the method above. going back to login history now
+                    goToLogin()
                 }
             }
 
@@ -94,12 +97,15 @@ class ItemListActivity : AppCompatActivity() {
         finishAndRemoveTask()
         // TODO figure out how to properly close the application.
         // Most solutions either leave the application on the background or return to login.
-
     }
 
     private fun handleErrorFetchingFilms(error : String){
         Toast.makeText(this@ItemListActivity, error, Toast.LENGTH_LONG)
-        // Possibily not needed, but just in case clear the token to prevent getting stuck with an expired token
+        // Clear token so the app doesn't get stuck on this activity without a valid token.
+        // worst case scenario, will get stuck, and by clearing it next time will show the login screen.
         SessionManager.clearToken()
     }
+
+    private fun goToLogin() = startActivity(Intent(this@ItemListActivity,LoginActivity::class.java))
+
 }
