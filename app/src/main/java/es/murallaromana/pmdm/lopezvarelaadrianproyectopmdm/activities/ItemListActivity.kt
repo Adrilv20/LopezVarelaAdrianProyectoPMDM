@@ -79,7 +79,7 @@ class ItemListActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem) : Boolean {
         return when(item.itemId) {
             R.id.action_log_out -> {
-                // SessionManager.clearToken()
+                SessionManager.clearToken()
                 onBackPressed()
                 true
             }
