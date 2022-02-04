@@ -7,7 +7,7 @@ import java.time.LocalDate
 // Default values to get an empty constructor.
 // Changed from val to var in order to modify the film on FilmEditActivity.
 data class Film(
-        var id: String = "-1",
+        var id: String? = null,
         var title: String = "",
         @SerializedName("directorFullName")
         var director: String = "",

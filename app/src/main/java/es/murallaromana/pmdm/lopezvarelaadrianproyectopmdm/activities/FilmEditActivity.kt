@@ -34,7 +34,6 @@ class FilmEditActivity : AppCompatActivity() {
         // first block gets executed if editing existing film, 2nd block otherwise
         originalFilm?.let {
             title = it.title
-            // TODO(check the error given when trying to access it as originlFilm.copy())
             newFilm = it.copy()
             with(binding) {
                 etFilmTitle.setText(it.title)
@@ -58,7 +57,7 @@ class FilmEditActivity : AppCompatActivity() {
         binding.floatingActionButton.setOnClickListener {
             if (filmChanged()) {
                 when (newFilm.id) {
-                    "-1" -> GLB_STATE.addNewFilm(newFilm)
+                    null -> GLB_STATE.addNewFilm(newFilm)
                     else -> {
                         GLB_STATE.updateFilm(newFilm)
                         setResult(RESULT_OK, Intent().apply { putExtra(KEYS.FILM, newFilm) })
@@ -94,7 +93,8 @@ class FilmEditActivity : AppCompatActivity() {
 
     private fun toggleDirtyWatcherOnEditTexts() {
         with(binding) {
-            // TODO(Search for a solution to only update newFilm after a user finishes editing a field)
+            // this isn't particularly efficient and probably not the best alternative, but keeping it this way
+            // to have an example about extensions and TextWatchers
             etFilmTitle.afterTextChanged { newFilm.title = it }
             etDirectorName.afterTextChanged { newFilm.director = it }
             etDuration.afterTextChanged {

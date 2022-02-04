@@ -12,10 +12,10 @@ interface API {
     fun getFilms(): Call<List<Film>>
 
     @GET("movies/{id}")
-    fun getFilmById(@Path("id") id: String)
+    fun getFilmById(@Path("id") id: String) : Call<Film>
 
     @POST("movies/")
-    fun createFilm(@Body film : Film)
+    fun createFilm(@Body film : Film) : Call<Film>
 
     @PUT("movies/")
     fun editFilm(@Body film : Film)
