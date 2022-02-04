@@ -88,15 +88,7 @@ class ItemListActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        /*
-        val closeAppIntent = Intent(Intent.ACTION_MAIN)
-        closeAppIntent.addCategory(Intent.CATEGORY_HOME)
-        closeAppIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(closeAppIntent)
-        */
         finishAndRemoveTask()
-        // TODO figure out how to properly close the application.
-        // Most solutions either leave the application on the background or return to login.
     }
 
     private fun handleErrorFetchingFilms(error : String){
