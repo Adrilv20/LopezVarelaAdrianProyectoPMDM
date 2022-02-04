@@ -13,6 +13,7 @@ import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.ActivityFilmDetailsBinding
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.Film
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.KEYS
+import java.lang.IllegalArgumentException
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
@@ -59,9 +60,13 @@ class FilmDetailsActivity : AppCompatActivity() {
             // TODO(change duration format to "Xh Ymin")
             tvDuration.text = film.durationMins.toString() + " mins"
             tvDescription.text = film.summary
-            Picasso.get().load(film.imageURL)
+            try {
+                Picasso.get().load(film.imageURL)
                     .resize(imageWidth, imageHeight)
                     .into(ivDetailsFilmPoster)
+            } catch (ex: IllegalArgumentException) {
+                ivDetailsFilmPoster.setImageResource(R.drawable.ic_image_not_found)
+            }
             tvTelephone.apply {
                 // Using an instance of SpannableString to make the phone number be underlined
                 with(SpannableString(film.dirPhoneNum)) {

@@ -48,7 +48,7 @@ class FilmListAdapter(private var films : List<Film>, val context : Context) : R
                     .resize(filmPosterWidth, filmPosterHeight).centerCrop()
                     .into(ivFilmPoster)
             } catch (ex : IllegalArgumentException){
-                // since this is a mock, not doing anything and simply not setting the image if the url was not vlaid
+                ivFilmPoster.setImageResource(R.drawable.ic_image_not_found)
             }
 
         }
