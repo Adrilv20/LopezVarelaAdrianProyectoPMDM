@@ -3,6 +3,7 @@ package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -11,10 +12,10 @@ import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.afterTextChanged
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.ActivityFilmEditBinding
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.Film
-import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.KEYS
-import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.dateFromString
-import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.dateToString
-import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.dateInputRegex
+import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.lang.NumberFormatException
 
 class FilmEditActivity : AppCompatActivity() {
@@ -57,7 +58,9 @@ class FilmEditActivity : AppCompatActivity() {
         binding.floatingActionButton.setOnClickListener {
             if (filmChanged()) {
                 when (newFilm.id) {
-                    null -> GLB_STATE.addNewFilm(newFilm)
+                    null -> {
+                        callCreateFilm(newFilm)
+                    }
                     else -> {
                         GLB_STATE.updateFilm(newFilm)
                         setResult(RESULT_OK, Intent().apply { putExtra(KEYS.FILM, newFilm) })
@@ -112,4 +115,37 @@ class FilmEditActivity : AppCompatActivity() {
     }
 
     private fun filmChanged(): Boolean = !(originalFilm?.equals(newFilm) ?: (newFilm == Film()))
+
+    private fun callCreateFilm(film : Film) {
+        val createCall = RetrofitClient.instance.createFilm(film)
+        createCall.enqueue(object: Callback<Film>{
+            override fun onResponse(call: Call<Film>, response: Response<Film>) {
+                if (!response.isSuccessful){
+                    Toast.makeText(
+                        this@FilmEditActivity,
+                        "Server side error while creating a new film.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    Log.d("Error creating film", response.errorBody().toString())
+                } else {
+                    Toast.makeText(
+                        this@FilmEditActivity,
+                        "Success!!",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Film>, t: Throwable) {
+                Toast.makeText(
+                    this@FilmEditActivity,
+                    "Unexpected error while creating a new film.",
+                    Toast.LENGTH_LONG
+                ).show()
+                Log.d("Error creating film", t.toString())
+            }
+        })
+
+    }
+
 }
