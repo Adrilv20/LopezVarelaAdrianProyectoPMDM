@@ -56,10 +56,12 @@ class FilmDetailsActivity : AppCompatActivity() {
         with(binding) {
             tvDetailsFilmTitle.text = film.title
             tvDirectorDetails.text = getString(R.string.directed_by_prefix) + " " + film.director
-            tvReleaseDate.text = dateFormat.format(film.releaseDate)
+            tvReleaseDate.text.apply {
+                film.releaseDate?.let{ dateFormat.format(it)} // TODO test this works as intended once dates are implemented
+            }
             // TODO(change duration format to "Xh Ymin")
             tvDuration.text = film.durationMins.toString() + " mins"
-            tvDescription.text = film.summary
+            tvDescription.text = film?.summary
             try {
                 Picasso.get().load(film.imageURL)
                     .resize(imageWidth, imageHeight)

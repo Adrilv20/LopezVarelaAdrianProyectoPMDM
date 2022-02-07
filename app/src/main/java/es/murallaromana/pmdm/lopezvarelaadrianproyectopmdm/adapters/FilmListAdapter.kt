@@ -53,9 +53,9 @@ class FilmListAdapter(private var films: List<Film>, val context: Context) :
             tvTitle.setText(film.title)
             tvDirector.setText(context.getString(R.string.directed_by_prefix) + " " + film.director)
             tvReleaseDate.setText(
-                context.getString(R.string.releasedOnPrefix) + ": " + dateToString(
-                    film.releaseDate
-                )
+                film.releaseDate?.run {
+                context.getString(R.string.releasedOnPrefix) + ": " + dateToString(this)
+                }
             )
             try {
                 Picasso.get().load(film.imageURL)

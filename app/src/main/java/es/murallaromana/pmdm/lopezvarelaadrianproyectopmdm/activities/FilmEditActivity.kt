@@ -41,7 +41,7 @@ class FilmEditActivity : AppCompatActivity() {
                 etFilmTitle.setText(it.title)
                 etDirectorName.setText(it.director)
                 etDuration.setText(it.durationMins.toString())
-                etReleaseDate.setText(dateToString(it.releaseDate))
+                etReleaseDate.setText(it.releaseDate?.run { dateToString(this) })
                 etTelephoneNomber.setText(it.dirPhoneNum)
                 etImageUrl.setText(it.imageURL)
                 etFilmSummary.setText(it.summary)
@@ -62,25 +62,27 @@ class FilmEditActivity : AppCompatActivity() {
                         callCreateFilm(newFilm)
                     }
                     else -> {
-                        GLB_STATE.updateFilm(newFilm)
-                        setResult(RESULT_OK, Intent().apply { putExtra(KEYS.FILM, newFilm) })
+                        callEditFilm(newFilm)
                     }
                 }
-            } else Toast.makeText(this, getString(R.string.editActNoChangesToast), Toast.LENGTH_SHORT).show()
-            finish()
+            } else Toast.makeText(
+                this,
+                getString(R.string.editActNoChangesToast),
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
     override fun onBackPressed() {
         if (filmChanged()) {
             AlertDialog.Builder(this)
-                    .setTitle(getString(R.string.editActLeaveTitle))
-                    .setMessage(getString(R.string.editActLeaveMessage))
-                    .setPositiveButton(getString(R.string.editActLeaveButton), { _, _ ->
-                        super.onBackPressed()
-                    })
-                    .setNegativeButton(getString(R.string.editActStayButton), null)
-                    .create().show()
+                .setTitle(getString(R.string.editActLeaveTitle))
+                .setMessage(getString(R.string.editActLeaveMessage))
+                .setPositiveButton(getString(R.string.editActLeaveButton), { _, _ ->
+                    super.onBackPressed()
+                })
+                .setNegativeButton(getString(R.string.editActStayButton), null)
+                .create().show()
         } else {
             super.onBackPressed()
         }
@@ -107,7 +109,9 @@ class FilmEditActivity : AppCompatActivity() {
                     // TODO(inform the user that this is not a valid value)
                 }
             }
-            etReleaseDate.afterTextChanged { if (dateInputRegex.matches(it)) newFilm.releaseDate = dateFromString(it) }
+            etReleaseDate.afterTextChanged {
+                if (dateInputRegex.matches(it)) newFilm.releaseDate = dateFromString(it)
+            }
             etTelephoneNomber.afterTextChanged { newFilm.dirPhoneNum = it }
             etImageUrl.afterTextChanged { newFilm.imageURL = it }
             etFilmSummary.afterTextChanged { newFilm.summary = it }
@@ -116,11 +120,11 @@ class FilmEditActivity : AppCompatActivity() {
 
     private fun filmChanged(): Boolean = !(originalFilm?.equals(newFilm) ?: (newFilm == Film()))
 
-    private fun callCreateFilm(film : Film) {
+    private fun callCreateFilm(film: Film) {
         val createCall = RetrofitClient.instance.createFilm(film)
-        createCall.enqueue(object: Callback<Film>{
+        createCall.enqueue(object : Callback<Film> {
             override fun onResponse(call: Call<Film>, response: Response<Film>) {
-                if (!response.isSuccessful){
+                if (!response.isSuccessful) {
                     Toast.makeText(
                         this@FilmEditActivity,
                         "Server side error while creating a new film.",
@@ -133,6 +137,7 @@ class FilmEditActivity : AppCompatActivity() {
                         "Success!!",
                         Toast.LENGTH_LONG
                     ).show()
+                    finish()
                 }
             }
 
@@ -146,6 +151,44 @@ class FilmEditActivity : AppCompatActivity() {
             }
         })
 
+    }
+
+    private fun callEditFilm(newFilm: Film) {
+        val editCall = RetrofitClient.instance.editFilm(newFilm)
+        editCall.enqueue(object : Callback<Film> {
+            override fun onResponse(call: Call<Film>, response: Response<Film>) {
+                if (!response.isSuccessful) {
+                    Toast.makeText(
+                        this@FilmEditActivity,
+                        "Server side error while editing the film.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    Log.d("Error editing film", response.errorBody().toString())
+                } else {
+                    Toast.makeText(
+                        this@FilmEditActivity,
+                        "Successfully edited!!",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    setResult(RESULT_OK, Intent().apply {
+                        putExtra(
+                            KEYS.FILM, response.body() as Film
+                        )
+                    })
+                    finish()
+                }
+
+            }
+
+            override fun onFailure(call: Call<Film>, t: Throwable) {
+                Toast.makeText(
+                    this@FilmEditActivity,
+                    "Unexpected error while editing the film.",
+                    Toast.LENGTH_LONG
+                ).show()
+                Log.d("Error editing film", t.toString())
+            }
+        })
     }
 
 }

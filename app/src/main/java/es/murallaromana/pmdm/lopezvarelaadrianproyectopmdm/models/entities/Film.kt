@@ -1,5 +1,6 @@
 package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities
 
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.time.LocalDate
@@ -9,16 +10,17 @@ import java.time.LocalDate
 data class Film(
         var id: String? = null,
         var title: String = "",
-        @SerializedName("directorFullName")
+        @SerializedName("directorFullname")
         var director: String = "",
         @SerializedName("directorPhone")
         var dirPhoneNum: String = "",
         @SerializedName("runtimeMinutes")
         var durationMins: Int = -1,
         // TODO ask for change on the back to include full date?
-        var releaseDate: LocalDate = LocalDate.MIN,
+        @Expose(serialize = false, deserialize = false)
+        var releaseDate: LocalDate? = null,
         @SerializedName("imageUrl")
-        var imageURL: String = "",
+        var imageURL: String? = null,
         @SerializedName("description")
         var summary: String = ""
 ) : Serializable {}

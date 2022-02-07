@@ -18,7 +18,7 @@ interface API {
     fun createFilm(@Body film : Film) : Call<Film>
 
     @PUT("movies/")
-    fun editFilm(@Body film : Film)
+    fun editFilm(@Body film : Film) : Call<Film>
 
     @DELETE("movies/{id}")
     fun deleteFilm(@Path("id") id : String)

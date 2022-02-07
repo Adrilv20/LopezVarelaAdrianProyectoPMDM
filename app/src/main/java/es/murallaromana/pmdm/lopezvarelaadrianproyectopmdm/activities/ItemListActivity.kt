@@ -50,7 +50,6 @@ class ItemListActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<Film>>, response: Response<List<Film>>) {
                 if(response.isSuccessful) {
                     films = response.body() as List<Film>
-                    films.forEach { Log.d("Film", it.toString()) }
                     // set the layout manager and the adapter for the RecyclerView
                     view = binding.rvFilmList
                     view.layoutManager = LinearLayoutManager(this@ItemListActivity)
