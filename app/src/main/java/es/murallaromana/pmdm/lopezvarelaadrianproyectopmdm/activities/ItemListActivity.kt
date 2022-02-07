@@ -23,7 +23,7 @@ import retrofit2.Response
 class ItemListActivity : AppCompatActivity() {
     private lateinit var binding : ActivityItemListBinding
     private lateinit var view : RecyclerView
-    private lateinit var films : List<Film>
+    private val films : MutableList<Film> = mutableListOf<Film>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +32,16 @@ class ItemListActivity : AppCompatActivity() {
 
         // set the screen title
         title = resources.getString(R.string.filmListViewTitle)
+
+        // set up the recyclerview
+        view = binding.rvFilmList
+        with(view) {
+            // optimization for the RecyclerView rendering
+            setHasFixedSize(true)
+            // set the layout manager and the adapter for the RecyclerView
+            layoutManager = LinearLayoutManager(this@ItemListActivity)
+            adapter = FilmListAdapter(films, this@ItemListActivity)
+        }
 
         val fab : FloatingActionButton = binding.fabAddItem
         fab.setOnClickListener {
@@ -47,22 +57,17 @@ class ItemListActivity : AppCompatActivity() {
         // fetch movies from the API
         val moviesCall = RetrofitClient.instance.getFilms()
         moviesCall.enqueue(object : Callback<List<Film>>{
-            override fun onResponse(call: Call<List<Film>>, response: Response<List<Film>>) {
+            override fun onResponse(call: Call<List<Film>>, response: Response<List<Film>>) =
                 if(response.isSuccessful) {
-                    films = response.body() as List<Film>
-                    // set the layout manager and the adapter for the RecyclerView
-                    view = binding.rvFilmList
-                    view.layoutManager = LinearLayoutManager(this@ItemListActivity)
-                    view.adapter = FilmListAdapter(films, this@ItemListActivity)
-                    // optimization for the RecyclerView rendering
-                    view.setHasFixedSize(true)
+                    films.clear()
+                    films.addAll(response.body() as List<Film>)
+                    view.adapter!!.notifyDataSetChanged()
                 } else {
                     handleErrorFetchingFilms("Error while fetching the films: " + response.errorBody()?.string())
                     // since there's no direct way to tell if the error was due to expired token, we'll have to asume so
                     // token got already cleared by the method above. going back to login history now
                     goToLogin()
                 }
-            }
 
             override fun onFailure(call: Call<List<Film>>, t: Throwable) {
                 handleErrorFetchingFilms("Unexpected error while fetching movies:" + t.toString())
