@@ -23,7 +23,7 @@ import retrofit2.Response
 class ItemListActivity : AppCompatActivity() {
     private lateinit var binding : ActivityItemListBinding
     private lateinit var view : RecyclerView
-    private val films : MutableList<Film> = mutableListOf<Film>()
+    private val films : MutableList<Film> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +56,7 @@ class ItemListActivity : AppCompatActivity() {
 
         // fetch movies from the API
         val moviesCall = RetrofitClient.instance.getFilms()
-        moviesCall.enqueue(object : Callback<List<Film>>{
+        moviesCall.enqueue(object : Callback<List<Film>> {
             override fun onResponse(call: Call<List<Film>>, response: Response<List<Film>>) =
                 if(response.isSuccessful) {
                     films.clear()

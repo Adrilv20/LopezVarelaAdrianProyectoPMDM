@@ -15,7 +15,7 @@ data class Film(
         @SerializedName("directorPhone")
         var dirPhoneNum: String = "",
         @SerializedName("runtimeMinutes")
-        var durationMins: Int = -1,
+        var durationMins: Int? = null,
         @Expose(serialize = true, deserialize = true)
         var releaseDate: LocalDate? = null,
         @SerializedName("imageUrl")

@@ -50,13 +50,14 @@ class FilmListAdapter(private var films: List<Film>, val context: Context) :
         // on the corresponding holder
         val film = films[position]
         with(holder) {
-            tvTitle.setText(film.title)
-            tvDirector.setText(context.getString(R.string.directed_by_prefix) + " " + film.director)
-            tvReleaseDate.setText(
+            tvTitle.text = film.title
+            tvDirector.text =
+                film.director?.let { context.getString(R.string.directed_by_prefix) + " " + it }
+            tvReleaseDate.text =
                 film.releaseDate?.run {
-                context.getString(R.string.releasedOnPrefix) + ": " + dateToString(this)
+                    context.getString(R.string.releasedOnPrefix) + ": " + dateToString(this)
                 }
-            )
+
             try {
                 Picasso.get().load(film.imageURL)
                     .resize(filmPosterWidth, filmPosterHeight).centerCrop()

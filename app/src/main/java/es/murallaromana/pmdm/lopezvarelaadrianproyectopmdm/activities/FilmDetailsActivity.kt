@@ -2,12 +2,14 @@ package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.activities
 
 import android.content.Intent
 import android.net.Uri
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.squareup.picasso.Picasso
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.ActivityFilmDetailsBinding
@@ -56,11 +58,10 @@ class FilmDetailsActivity : AppCompatActivity() {
         with(binding) {
             tvDetailsFilmTitle.text = film.title
             tvDirectorDetails.text = getString(R.string.directed_by_prefix) + " " + film.director
-            tvReleaseDate.text.apply {
-                film.releaseDate?.let{ dateFormat.format(it)} // TODO test this works as intended once dates are implemented
-            }
+            film.releaseDate?.let { tvReleaseDate.text = dateFormat.format(film.releaseDate)} ?: hideReleaseDateSection()
+
             // TODO(change duration format to "Xh Ymin")
-            tvDuration.text = film.durationMins.toString() + " mins"
+            tvDuration.text = film.durationMins?.toString() + " mins"
             tvDescription.text = film?.summary
             try {
                 Picasso.get().load(film.imageURL)
@@ -82,6 +83,14 @@ class FilmDetailsActivity : AppCompatActivity() {
                     startActivity(callIntent)
                 }
             }
+        }
+    }
+
+    private fun hideReleaseDateSection(): Unit {
+        with(binding) {
+            tvReleaseDate.visibility = View.GONE
+            tvReleaseDateLabel.visibility = View.GONE
+            ivReleaseDateIcon.visibility = View.GONE
         }
     }
 

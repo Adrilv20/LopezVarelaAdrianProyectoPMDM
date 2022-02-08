@@ -17,6 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.NumberFormatException
+import java.time.format.DateTimeParseException
 
 class FilmEditActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFilmEditBinding
@@ -41,7 +42,7 @@ class FilmEditActivity : AppCompatActivity() {
                 etFilmTitle.setText(it.title)
                 etDirectorName.setText(it.director)
                 etDuration.setText(it.durationMins.toString())
-                etReleaseDate.setText(it.releaseDate?.run { dateToString(this) })
+                etReleaseDate.setText(it.releaseDate?.let { dateToString(it) })
                 etTelephoneNomber.setText(it.dirPhoneNum)
                 etImageUrl.setText(it.imageURL)
                 etFilmSummary.setText(it.summary)
@@ -106,11 +107,17 @@ class FilmEditActivity : AppCompatActivity() {
                 try {
                     newFilm.durationMins = it.toInt()
                 } catch (e: NumberFormatException) {
-                    // TODO(inform the user that this is not a valid value)
+                    newFilm.durationMins = null
                 }
             }
             etReleaseDate.afterTextChanged {
-                if (dateInputRegex.matches(it)) newFilm.releaseDate = dateFromString(it)
+                if (dateInputRegex.matches(it)) {
+                    try {
+                        newFilm.releaseDate = dateFromString(it)
+                    } catch (e: DateTimeParseException) {
+                        newFilm.releaseDate = null
+                    }
+                }
             }
             etTelephoneNomber.afterTextChanged { newFilm.dirPhoneNum = it }
             etImageUrl.afterTextChanged { newFilm.imageURL = it }
