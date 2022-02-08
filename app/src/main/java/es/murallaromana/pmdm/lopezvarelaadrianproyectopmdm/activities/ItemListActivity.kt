@@ -71,6 +71,7 @@ class ItemListActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<List<Film>>, t: Throwable) {
                 handleErrorFetchingFilms("Unexpected error while fetching movies:" + t.toString())
+                throw t
             }
         })
     }

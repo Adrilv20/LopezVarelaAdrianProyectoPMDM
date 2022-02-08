@@ -16,8 +16,7 @@ data class Film(
         var dirPhoneNum: String = "",
         @SerializedName("runtimeMinutes")
         var durationMins: Int = -1,
-        // TODO ask for change on the back to include full date?
-        @Expose(serialize = false, deserialize = false)
+        @Expose(serialize = true, deserialize = true)
         var releaseDate: LocalDate? = null,
         @SerializedName("imageUrl")
         var imageURL: String? = null,
