@@ -7,6 +7,7 @@ import android.widget.Toast
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.UserData
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.ActivityRegisterBinding
+import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.LoginData
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.KEYS
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.RetrofitClient
 import retrofit2.Call
@@ -47,7 +48,7 @@ class RegisterActivity : AppCompatActivity() {
             if (user.isValidData()) {
                 // prepare call to the backend to sing up the user
                 // TODO change button to "loading" icon
-                val singupCall = RetrofitClient.instance.userSingUp(user)
+                val singupCall = RetrofitClient.instance.userSingUp(LoginData(user.email, user.password))
                 singupCall.enqueue(object : Callback<Unit> {
                     override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
                         if (response.isSuccessful) {

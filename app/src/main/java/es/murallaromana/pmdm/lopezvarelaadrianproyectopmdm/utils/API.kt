@@ -25,7 +25,7 @@ interface API {
 
     @Headers("No-Authentication: true")
     @POST("users/signup")
-    fun userSingUp(@Body user : UserData): Call<Unit>
+    fun userSingUp(@Body user : LoginData): Call<Unit>
 
     @Headers("No-Authentication: true")
     @POST("users/login")
