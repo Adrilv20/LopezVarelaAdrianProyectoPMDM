@@ -21,7 +21,7 @@ interface API {
     fun editFilm(@Body film : Film) : Call<Film>
 
     @DELETE("movies/{id}")
-    fun deleteFilm(@Path("id") id : String)
+    fun deleteFilm(@Path("id") id : String) : Call<Unit>
 
     @Headers("No-Authentication: true")
     @POST("users/signup")

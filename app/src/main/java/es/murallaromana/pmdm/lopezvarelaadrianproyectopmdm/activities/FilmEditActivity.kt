@@ -23,7 +23,6 @@ class FilmEditActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFilmEditBinding
     private var originalFilm: Film? = null
     private lateinit var newFilm: Film
-    private var creating = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,16 +38,14 @@ class FilmEditActivity : AppCompatActivity() {
             newFilm = it.copy()
             with(binding) {
                 etFilmTitle.setText(it.title)
-                etFilmTitle.setText(it.title)
                 etDirectorName.setText(it.director)
-                etDuration.setText(it.durationMins.toString())
+                etDuration.setText(it.durationMins?.toString())
                 etReleaseDate.setText(it.releaseDate?.let { dateToString(it) })
                 etTelephoneNomber.setText(it.dirPhoneNum)
                 etImageUrl.setText(it.imageURL)
                 etFilmSummary.setText(it.summary)
             }
         } ?: run {
-            creating = true
             title = getString(R.string.newFilmActivityTitle)
             newFilm = Film()
         }
@@ -141,8 +138,8 @@ class FilmEditActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(
                         this@FilmEditActivity,
-                        "Success!!",
-                        Toast.LENGTH_LONG
+                        "Film created",
+                        Toast.LENGTH_SHORT
                     ).show()
                     finish()
                 }
@@ -174,8 +171,8 @@ class FilmEditActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(
                         this@FilmEditActivity,
-                        "Successfully edited!!",
-                        Toast.LENGTH_LONG
+                        "Film edited!!",
+                        Toast.LENGTH_SHORT
                     ).show()
                     setResult(RESULT_OK, Intent().apply {
                         putExtra(

@@ -21,7 +21,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FilmListAdapter(private var films: List<Film>, val context: Context) :
+class FilmListAdapter(private var films: MutableList<Film>, val context: Context) :
     RecyclerView.Adapter<FilmListAdapter.FilmViewHolder>() {
     // context required in order to fetch the dimensions for the images
     private var filmPosterWidth: Int =
@@ -112,13 +112,8 @@ class FilmListAdapter(private var films: List<Film>, val context: Context) :
                 .setTitle("Deleting film")
                 .setMessage("About to delete film " + film.title)
                 .setPositiveButton("Delete", { _, _ ->
+                    callDeleteFilm(film.id!!)
                     // update the global state
-                    GLB_STATE.removeFilm(film.id!!.toLong())
-                    // get the new state and update the list of items of the adapter
-                    // IMPORTANT: not altering the inner state of the adapter results on a malformed list
-                    this.films = GLB_STATE.getAllFilms()
-                    // notify the adapter so it updates the rendered list
-                    this.notifyItemRemoved(position)
                     result = true
                 })
                 .setNegativeButton("Keep", null)
@@ -128,5 +123,40 @@ class FilmListAdapter(private var films: List<Film>, val context: Context) :
     }
 
     override fun getItemCount(): Int = films.size
+
+    private fun callDeleteFilm(filmId: String) {
+        val deleteCall = RetrofitClient.instance.deleteFilm(filmId)
+        deleteCall.enqueue(object : Callback<Unit> {
+            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                if (response.isSuccessful) {
+                    with(this@FilmListAdapter) {
+                        var pos = films.indexOfFirst { it.id == filmId }
+                        if (pos != -1) {
+                            films.removeAt(pos)
+                            notifyItemRemoved(pos)
+                        }
+                    }
+
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Server side error while deleting the film.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    Log.d("Error deleting film", response.errorBody().toString())
+                }
+            }
+
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                Toast.makeText(
+                    context,
+                    "Unexpected error while deleting the film.",
+                    Toast.LENGTH_LONG
+                ).show()
+                Log.d("Error deleting film", t.toString())
+                throw t
+            }
+        })
+    }
 
 }
