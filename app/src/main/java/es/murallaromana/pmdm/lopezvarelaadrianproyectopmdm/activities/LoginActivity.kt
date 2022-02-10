@@ -83,5 +83,10 @@ class LoginActivity : AppCompatActivity() {
         super.onResume()
     }
 
-    private fun goToListOfFilms() = startActivity(Intent(this@LoginActivity,ItemListActivity::class.java))
+    private fun goToListOfFilms() {
+        val filmsIntent = Intent(this@LoginActivity,ItemListActivity::class.java)
+        filmsIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(filmsIntent)
+        finish()
+    }
 }
