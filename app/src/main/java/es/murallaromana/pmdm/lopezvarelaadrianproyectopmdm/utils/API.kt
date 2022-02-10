@@ -3,7 +3,6 @@ package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.Film
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.LoginData
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.Token
-import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.UserData
 import retrofit2.Call
 import retrofit2.http.*
 

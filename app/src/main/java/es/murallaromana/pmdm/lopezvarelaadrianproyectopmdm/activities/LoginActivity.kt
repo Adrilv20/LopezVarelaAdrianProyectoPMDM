@@ -76,9 +76,8 @@ class LoginActivity : AppCompatActivity() {
     override fun onResume() {
         // in case there's an account data stored in sharedPreferences from the register screen,
         // load the corresponding username and password on this screen's fields.
-        // TODO FULLY CHANGE LOGIN TO WORK WITH EMAIL INSTEAD OF USERNANE. Right now just slightly adapted to test api calls
         val sharedPref = getSharedPreferences(KEYS.LOGIN_DATA, MODE_PRIVATE)
-        val email: String? = sharedPref.getString(KEYS.EMAIL, "").toString()
+        val email: String = sharedPref.getString(KEYS.EMAIL, "").toString()
         binding.etEmail.setText(email)
         super.onResume()
     }

@@ -9,7 +9,7 @@ import java.time.LocalDate
 
 /*
 * Used to customize the date format used when serializing and deserializing films.
-* See DateDeserializer for alternative (different API, would need an aditional class for serializing)
+* See DateDeserializer for alternative (different API, would need an additional class for serializing)
 */
 class LocalDateAdapter: TypeAdapter<LocalDate>() {
     override fun write(out: JsonWriter?, value: LocalDate?) {

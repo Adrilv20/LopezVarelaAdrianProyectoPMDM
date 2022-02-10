@@ -1,15 +1,13 @@
 package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.interceptors
 
-import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.App
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.SessionManager
-import okhttp3.Dispatcher
 import okhttp3.Interceptor
 import okhttp3.Response
 
 /**
  * Custom interceptor to include the auth token on all API calls that don't have the No-Authentication header
  */
-class AuthInterceptor() : Interceptor {
+class AuthInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         // case no auth header needed
         if (chain.request().header("No-Authentication") != null) {

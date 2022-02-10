@@ -3,7 +3,6 @@ package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -64,13 +63,13 @@ class ItemListActivity : AppCompatActivity() {
                     view.adapter!!.notifyDataSetChanged()
                 } else {
                     handleErrorFetchingFilms("Error while fetching the films: " + response.errorBody()?.string())
-                    // since there's no direct way to tell if the error was due to expired token, we'll have to asume so
+                    // since there's no direct way to tell if the error was due to expired token, we'll have to assume so
                     // token got already cleared by the method above. going back to login history now
                     goToLogin()
                 }
 
             override fun onFailure(call: Call<List<Film>>, t: Throwable) {
-                handleErrorFetchingFilms("Unexpected error while fetching movies:" + t.toString())
+                handleErrorFetchingFilms("Unexpected error while fetching movies:$t")
                 throw t
             }
         })
@@ -97,7 +96,7 @@ class ItemListActivity : AppCompatActivity() {
     }
 
     private fun handleErrorFetchingFilms(error : String){
-        Toast.makeText(this@ItemListActivity, error, Toast.LENGTH_LONG)
+        Toast.makeText(this@ItemListActivity, error, Toast.LENGTH_LONG).show()
         // Clear token so the app doesn't get stuck on this activity without a valid token.
         // worst case scenario, will get stuck, and by clearing it next time will show the login screen.
         SessionManager.clearToken()

@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.App.GLB_STATE
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.activities.FilmDetailsActivity
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.FilmItemListBinding
@@ -29,7 +28,7 @@ class FilmListAdapter(private var films: MutableList<Film>, val context: Context
     private var filmPosterHeight: Int =
         context.resources.getDimension(R.dimen.film_poster_list_height).toInt()
 
-    class FilmViewHolder(val binding: FilmItemListBinding) : RecyclerView.ViewHolder(binding.root) {
+    class FilmViewHolder(binding: FilmItemListBinding) : RecyclerView.ViewHolder(binding.root) {
         // TODO(change the binding to a method inside the holder, instead of directing binding in Adapter.onBindViewHolder)
         val tvTitle = binding.tvFilmTitle
         val tvReleaseDate = binding.tvReleaseDate
@@ -111,11 +110,11 @@ class FilmListAdapter(private var films: MutableList<Film>, val context: Context
             AlertDialog.Builder(holder.itemView.context)
                 .setTitle("Deleting film")
                 .setMessage("About to delete film " + film.title)
-                .setPositiveButton("Delete", { _, _ ->
+                .setPositiveButton("Delete") { _, _ ->
                     callDeleteFilm(film.id!!)
                     // update the global state
                     result = true
-                })
+                }
                 .setNegativeButton("Keep", null)
                 .create().show()
             result
@@ -130,7 +129,7 @@ class FilmListAdapter(private var films: MutableList<Film>, val context: Context
             override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
                 if (response.isSuccessful) {
                     with(this@FilmListAdapter) {
-                        var pos = films.indexOfFirst { it.id == filmId }
+                        val pos = films.indexOfFirst { it.id == filmId }
                         if (pos != -1) {
                             films.removeAt(pos)
                             notifyItemRemoved(pos)

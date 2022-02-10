@@ -1,6 +1,5 @@
 package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities
 
-import android.content.Context
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.App.GLB_STATE

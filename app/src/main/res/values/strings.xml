@@ -2,7 +2,6 @@
     <string name="app_name">Films by Adrian Lopez</string>
     <string name="filmListViewTitle">Film List</string>
     <string name="filmDetailsViewTitle">Film details</string>
-    <string name="redirect_to_login_message">Redirigiendo a la pantalla de registro.</string>
     <string name="directed_by_prefix">Directed by</string>
     <string name="toolsTitleFilm">Title of the film</string>
     <string name="hintReleaseDate">Release Date</string>

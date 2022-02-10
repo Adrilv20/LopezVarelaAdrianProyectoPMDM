@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.App.GLB_STATE
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.afterTextChanged
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.ActivityFilmEditBinding
@@ -41,7 +40,7 @@ class FilmEditActivity : AppCompatActivity() {
                 etDirectorName.setText(it.director)
                 etDuration.setText(it.durationMins?.toString())
                 etReleaseDate.setText(it.releaseDate?.let { dateToString(it) })
-                etTelephoneNomber.setText(it.dirPhoneNum)
+                etTelephoneNumber.setText(it.dirPhoneNum)
                 etImageUrl.setText(it.imageURL)
                 etFilmSummary.setText(it.summary)
             }
@@ -116,7 +115,7 @@ class FilmEditActivity : AppCompatActivity() {
                     }
                 }
             }
-            etTelephoneNomber.afterTextChanged { newFilm.dirPhoneNum = it }
+            etTelephoneNumber.afterTextChanged { newFilm.dirPhoneNum = it }
             etImageUrl.afterTextChanged { newFilm.imageURL = it }
             etFilmSummary.afterTextChanged { newFilm.summary = it }
         }

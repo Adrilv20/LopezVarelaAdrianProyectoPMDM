@@ -22,4 +22,4 @@ data class Film(
         var imageURL: String? = null,
         @SerializedName("description")
         var summary: String = ""
-) : Serializable {}
+) : Serializable

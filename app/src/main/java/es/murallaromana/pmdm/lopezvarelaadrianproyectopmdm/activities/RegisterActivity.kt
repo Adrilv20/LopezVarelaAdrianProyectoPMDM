@@ -29,9 +29,9 @@ class RegisterActivity : AppCompatActivity() {
         // set the process of data validation when pressing Sign button
         btnSignup = binding.btnSignUp
         btnSignup.setOnClickListener {
-            val username: String;
-            val email: String;
-            val password: String;
+            val username: String
+            val email: String
+            val password: String
             val duplicatedPassword: String
             // extract the input values from the textInputLayouts
             with(binding) {
@@ -48,8 +48,8 @@ class RegisterActivity : AppCompatActivity() {
             if (user.isValidData()) {
                 // prepare call to the backend to sing up the user
                 // TODO change button to "loading" icon
-                val singupCall = RetrofitClient.instance.userSingUp(LoginData(user.email, user.password))
-                singupCall.enqueue(object : Callback<Unit> {
+                val signupCall = RetrofitClient.instance.userSingUp(LoginData(user.email, user.password))
+                signupCall.enqueue(object : Callback<Unit> {
                     override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
                         if (response.isSuccessful) {
                             // sing up was successful
@@ -74,7 +74,7 @@ class RegisterActivity : AppCompatActivity() {
                     override fun onFailure(call: Call<Unit>, t: Throwable) {
                         Toast.makeText(
                             this@RegisterActivity,
-                            "Unexpected error during sinup:" + t.toString(),
+                            "Unexpected error during signup:" + t.toString(),
                             Toast.LENGTH_LONG
                         ).show()
                         return

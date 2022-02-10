@@ -2,7 +2,6 @@ package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.activities
 
 import android.content.Intent
 import android.net.Uri
-import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableString
@@ -46,7 +45,7 @@ class FilmDetailsActivity : AppCompatActivity() {
         // retrieve the film passed from the parent activity
         film = intent.getSerializableExtra(KEYS.FILM) as Film
 
-        // get the image dimensions from the correspoding resources file for future use.
+        // get the image dimensions from the corresponding resources file for future use.
         imageWidth = resources.getDimension(R.dimen.film_poster_details_width).toInt()
         imageHeight = resources.getDimension(R.dimen.film_poster_details_height).toInt()
     }
@@ -59,8 +58,6 @@ class FilmDetailsActivity : AppCompatActivity() {
             tvDetailsFilmTitle.text = film.title
             tvDirectorDetails.text = getString(R.string.directed_by_prefix) + " " + film.director
             film.releaseDate?.let { tvReleaseDate.text = dateFormat.format(film.releaseDate)} ?: hideReleaseDateSection()
-
-            // TODO(change duration format to "Xh Ymin")
             tvDuration.text = film.durationMins?.toString() + " mins"
             tvDescription.text = film?.summary
             try {
@@ -108,7 +105,6 @@ class FilmDetailsActivity : AppCompatActivity() {
             R.id.action_save_or_update -> {
                 val intent = Intent(this, FilmEditActivity::class.java)
                 intent.putExtra(KEYS.FILM, film)
-                // TODO(If possible, change to the more recent way to pass results: https://developer.android.com/training/basics/intents/result )
                 // while deprecated, using this right now because of time constrains
                 startActivityForResult(intent, FILM_EDIT_RESULT)
                 true
@@ -121,7 +117,7 @@ class FilmDetailsActivity : AppCompatActivity() {
         when (requestCode) {
             FILM_EDIT_RESULT ->
                 if (resultCode == RESULT_OK) {
-                    // recover the edited film. Will be displaed by onResume
+                    // recover the edited film. Will be displayed by onResume
                     film = data?.getSerializableExtra(KEYS.FILM) as Film
                 }
         }

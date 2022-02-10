@@ -1,13 +1,11 @@
 package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils
 
 import com.google.gson.*
-import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.adapters.DateDeserializer
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.adapters.LocalDateAdapter
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.interceptors.AuthInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.reflect.Type
 import java.time.LocalDate
 
 val BASE_URL = "https://damapi.herokuapp.com/api/v1/"
