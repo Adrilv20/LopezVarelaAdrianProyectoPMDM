@@ -1,32 +1,30 @@
 package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.adapters
 
 import android.app.AlertDialog
-import android.content.Context
-import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.R
-import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.activities.FilmDetailsActivity
+import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.actionHandlers.ClickHandler
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.databinding.FilmItemListBinding
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.models.entities.Film
-import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.KEYS
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.RetrofitClient
 import es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.utils.dateToString
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FilmListAdapter(private var films: MutableList<Film>, val context: Context) :
+class FilmListAdapter(private var films: MutableList<Film>, val listActivity : AppCompatActivity) :
     RecyclerView.Adapter<FilmListAdapter.FilmViewHolder>() {
     // context required in order to fetch the dimensions for the images
     private var filmPosterWidth: Int =
-        context.resources.getDimension(R.dimen.film_poster_list_width).toInt()
+        listActivity.resources.getDimension(R.dimen.film_poster_list_width).toInt()
     private var filmPosterHeight: Int =
-        context.resources.getDimension(R.dimen.film_poster_list_height).toInt()
+        listActivity.resources.getDimension(R.dimen.film_poster_list_height).toInt()
 
     class FilmViewHolder(binding: FilmItemListBinding) : RecyclerView.ViewHolder(binding.root) {
         // TODO(change the binding to a method inside the holder, instead of directing binding in Adapter.onBindViewHolder)
@@ -51,10 +49,10 @@ class FilmListAdapter(private var films: MutableList<Film>, val context: Context
         with(holder) {
             tvTitle.text = film.title
             tvDirector.text =
-                film.director?.let { context.getString(R.string.directed_by_prefix) + " " + it }
+                film.director?.let { listActivity.getString(R.string.directed_by_prefix) + " " + it }
             tvReleaseDate.text =
                 film.releaseDate?.run {
-                    context.getString(R.string.releasedOnPrefix) + ": " + dateToString(this)
+                    listActivity.getString(R.string.releasedOnPrefix) + ": " + dateToString(this)
                 }
 
             try {
@@ -66,96 +64,19 @@ class FilmListAdapter(private var films: MutableList<Film>, val context: Context
             }
 
         }
+
         // set the listener to navigate to the details page of the film
         holder.itemView.setOnClickListener {
-            val getByIdCall = RetrofitClient.instance.getFilmById(film.id as String)
-
-            getByIdCall.enqueue(object : Callback<Film> {
-                override fun onResponse(call: Call<Film>, response: Response<Film>) {
-                    if (response.isSuccessful) {
-                        val intent: Intent =
-                            Intent(holder.itemView.context, FilmDetailsActivity::class.java).apply {
-                                putExtra(
-                                    KEYS.FILM,
-                                    response.body() as Film
-                                )
-                                // the cast may not be needed
-                            }
-                        it.context.startActivity(intent)
-                    } else {
-                        Toast.makeText(
-                            context,
-                            "Unexpected error from the server while requesting the film.",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        Log.d("Error GET movie/{id}: ", response.errorBody().toString())
-                    }
-                }
-
-                override fun onFailure(call: Call<Film>, t: Throwable) {
-                    Toast.makeText(
-                        context,
-                        "Unexpected error while requesting the film.",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    Log.d("Error fetching", t.toString())
-                }
-            })
+            (listActivity as ClickHandler).onItemClickHandler(position)
         }
 
-        // TODO Change deletion to be through the API
         // set delete mechanism
         holder.itemView.setOnLongClickListener {
-            var result: Boolean = false
-            AlertDialog.Builder(holder.itemView.context)
-                .setTitle("Deleting film")
-                .setMessage("About to delete film " + film.title)
-                .setPositiveButton("Delete") { _, _ ->
-                    callDeleteFilm(film.id!!)
-                    // update the global state
-                    result = true
-                }
-                .setNegativeButton("Keep", null)
-                .create().show()
-            result
+            (listActivity as ClickHandler).onItemLongClickHandler(position)
         }
     }
 
     override fun getItemCount(): Int = films.size
 
-    private fun callDeleteFilm(filmId: String) {
-        val deleteCall = RetrofitClient.instance.deleteFilm(filmId)
-        deleteCall.enqueue(object : Callback<Unit> {
-            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                if (response.isSuccessful) {
-                    with(this@FilmListAdapter) {
-                        val pos = films.indexOfFirst { it.id == filmId }
-                        if (pos != -1) {
-                            films.removeAt(pos)
-                            notifyItemRemoved(pos)
-                        }
-                    }
-
-                } else {
-                    Toast.makeText(
-                        context,
-                        "Server side error while deleting the film.",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    Log.d("Error deleting film", response.errorBody().toString())
-                }
-            }
-
-            override fun onFailure(call: Call<Unit>, t: Throwable) {
-                Toast.makeText(
-                    context,
-                    "Unexpected error while deleting the film.",
-                    Toast.LENGTH_LONG
-                ).show()
-                Log.d("Error deleting film", t.toString())
-                throw t
-            }
-        })
-    }
 
 }

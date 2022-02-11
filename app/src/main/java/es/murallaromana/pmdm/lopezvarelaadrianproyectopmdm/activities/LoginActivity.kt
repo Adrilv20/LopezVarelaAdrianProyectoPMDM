@@ -22,14 +22,15 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         // if there's an authToken stored, skip straight to the list of movies
         SessionManager.fetchAuthToken()?.let {
             goToListOfFilms()
         }
+
         // "else" sets up the login screen
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // make the register button redirect to the corresponding screen
         btnRegister = binding.btnRegister
