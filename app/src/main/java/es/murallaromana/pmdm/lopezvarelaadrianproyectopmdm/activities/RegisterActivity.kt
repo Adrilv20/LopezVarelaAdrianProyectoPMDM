@@ -29,6 +29,7 @@ class RegisterActivity : AppCompatActivity() {
         // set the process of data validation when pressing Sign button
         btnSignup = binding.btnSignUp
         btnSignup.setOnClickListener {
+            btnSignup.isEnabled = false
             val username: String
             val email: String
             val password: String
@@ -51,6 +52,7 @@ class RegisterActivity : AppCompatActivity() {
                 val signupCall = RetrofitClient.instance.userSingUp(LoginData(user.email, user.password))
                 signupCall.enqueue(object : Callback<Unit> {
                     override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                        btnSignup.isEnabled = true
                         if (response.isSuccessful) {
                             // sing up was successful
                             // Store username and password on sharedPreferences
@@ -72,6 +74,7 @@ class RegisterActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<Unit>, t: Throwable) {
+                        btnSignup.isEnabled = true
                         Toast.makeText(
                             this@RegisterActivity,
                             "Unexpected error during signup:" + t.toString(),
@@ -83,6 +86,7 @@ class RegisterActivity : AppCompatActivity() {
             } else {
                 // error message in case the user info doesn't pass the local validation
                 Toast.makeText(this, user.getErrorMessage(), Toast.LENGTH_LONG).show()
+                btnSignup.isEnabled = true
             }
         }
     }

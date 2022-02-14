@@ -35,19 +35,23 @@ class LoginActivity : AppCompatActivity() {
         // make the register button redirect to the corresponding screen
         btnRegister = binding.btnRegister
         btnRegister.setOnClickListener {
+            disableButtons()
             startActivity(Intent(this, RegisterActivity::class.java))
+            enableButtons() // not fully sure if needed, leaving it just in case
         }
 
         // make the login button transition into the list of films
         // no actual account check performed since this is mostly a mock application
         btnLogin = binding.btnLogin
         btnLogin.setOnClickListener {
+            disableButtons()
             val loginCall =
                 RetrofitClient.instance
                 .userLogIn(LoginData(binding.etEmail.text.toString().trim(), binding.etPassword.text.toString().trim()))
 
             loginCall.enqueue(object : Callback<Token> {
                 override fun onResponse(call: Call<Token>, response: Response<Token>) {
+                    enableButtons()
                     if (response.isSuccessful) {
                         val token = response.body() as Token
                         SessionManager.saveAuthToken(token.token)
@@ -63,6 +67,7 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<Token>, t: Throwable) {
+                    enableButtons()
                     Toast.makeText(
                         this@LoginActivity,
                         "Unexpected error during login:" + t.toString(),
@@ -88,5 +93,16 @@ class LoginActivity : AppCompatActivity() {
         filmsIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(filmsIntent)
         finish()
+    }
+
+    // methods used to disable/enable buttons to prevent weird interactions while pressing buttons repeatedly or
+    // waiting for the server response
+    private fun enableButtons(state : Boolean = true) {
+        btnLogin.isEnabled = state
+        btnRegister.isEnabled = state
+    }
+
+    private fun disableButtons() {
+        enableButtons(state = false)
     }
 }

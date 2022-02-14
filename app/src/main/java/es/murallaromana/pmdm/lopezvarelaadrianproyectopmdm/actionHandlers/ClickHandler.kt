@@ -1,7 +1,7 @@
 package es.murallaromana.pmdm.lopezvarelaadrianproyectopmdm.actionHandlers
 
 /**
- * Interface intended to abstract the hanlding of click-like actions
+ * Interface intended to abstract the handling of click-like actions
  * (onClickListener & onLongClickListener) from the adapter.
  *
  * Any activity implementing this interface will be declaring what a (list) adapter
