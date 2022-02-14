@@ -47,4 +47,13 @@
     <string name="film_summary_hint">Summary</string>
     <string name="action_log_out">Log Out</string>
     <string name="action_edit_film">Edit</string>
+    <string name="expired_token_error">Session eexpired. Going back to login screen.</string>
+    <string name="error_film_list_fetching">\"Unexpected error while fetching the films: \"</string>
+    <string name="error_fetching_film">Unexpected error from the server while requesting the film.</string>
+    <string name="server_error_film_delete">Server side error while deleting the film.</string>
+    <string name="unkown_error_film_delete">Unexpected error while deleting the film.</string>
+    <string name="server_error_film_create">Server side error while creating a new film.</string>
+    <string name="unkown_error_film_create">Unexpected error while creating a new film.</string>
+    <string name="server_error_film_edit">Server side error while editing the film.</string>
+    <string name="unkown_error_film_edit">Unexpected error while editing the film.</string>
 </resources>

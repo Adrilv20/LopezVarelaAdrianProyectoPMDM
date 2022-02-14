@@ -65,16 +65,18 @@ class ItemListActivity : AppCompatActivity(), ClickHandler {
                     films.clear()
                     films.addAll(response.body() as List<Film>)
                     recyclerView.adapter!!.notifyDataSetChanged()
-                } else {
-                    handleErrorFetchingFilms("Error while fetching the films: " + response.errorBody()?.string())
-                    // since there's no direct way to tell if the error was due to expired token, we'll have to assume so
-                    // token got already cleared by the method above. going back to login history now
+                } else if (response.code() == 401) {
+                    handleErrorFetchingFilms(getString(R.string.expired_token_error))
+                    goToLogin()
+                }
+                else {
+                    handleErrorFetchingFilms(getString(R.string.error_film_list_fetching) + response.errorBody()?.string())
                     goToLogin()
                 }
 
             override fun onFailure(call: Call<List<Film>>, t: Throwable) {
-                handleErrorFetchingFilms("Unexpected error while fetching movies:$t")
-                throw t
+                handleErrorFetchingFilms(getString(R.string.error_film_list_fetching))
+                Log.d("Error fetching", t.toString())
             }
         })
     }
@@ -114,10 +116,12 @@ class ItemListActivity : AppCompatActivity(), ClickHandler {
                             // the cast may not be needed
                         }
                     this@ItemListActivity.startActivity(intent)
+                } else if (response.code() == 401) {
+
                 } else {
                     Toast.makeText(
                         this@ItemListActivity,
-                        "Unexpected error from the server while requesting the film.",
+                        getString(R.string.error_fetching_film),
                         Toast.LENGTH_LONG
                     ).show()
                     Log.d("Error GET movie/{id}: ", response.errorBody().toString())
@@ -127,7 +131,7 @@ class ItemListActivity : AppCompatActivity(), ClickHandler {
             override fun onFailure(call: Call<Film>, t: Throwable) {
                 Toast.makeText(
                     this@ItemListActivity,
-                    "Unexpected error while requesting the film.",
+                    getString(R.string.error_fetching_film),
                     Toast.LENGTH_LONG
                 ).show()
                 Log.d("Error fetching", t.toString())
@@ -157,7 +161,10 @@ class ItemListActivity : AppCompatActivity(), ClickHandler {
         SessionManager.clearToken()
     }
 
-    private fun goToLogin() = startActivity(Intent(this@ItemListActivity,LoginActivity::class.java))
+    private fun goToLogin() {
+        startActivity(Intent(this@ItemListActivity,LoginActivity::class.java))
+        finish()
+    }
 
     private fun callDeleteFilm(filmId: String) {
         val deleteCall = RetrofitClient.instance.deleteFilm(filmId)
@@ -174,7 +181,7 @@ class ItemListActivity : AppCompatActivity(), ClickHandler {
                 } else {
                     Toast.makeText(
                         this@ItemListActivity,
-                        "Server side error while deleting the film.",
+                        getString(R.string.server_error_film_delete),
                         Toast.LENGTH_LONG
                     ).show()
                     Log.d("Error deleting film", response.errorBody().toString())
@@ -184,11 +191,10 @@ class ItemListActivity : AppCompatActivity(), ClickHandler {
             override fun onFailure(call: Call<Unit>, t: Throwable) {
                 Toast.makeText(
                     this@ItemListActivity,
-                    "Unexpected error while deleting the film.",
+                    getString(R.string.unkown_error_film_delete),
                     Toast.LENGTH_LONG
                 ).show()
                 Log.d("Error deleting film", t.toString())
-                throw t
             }
         })
     }

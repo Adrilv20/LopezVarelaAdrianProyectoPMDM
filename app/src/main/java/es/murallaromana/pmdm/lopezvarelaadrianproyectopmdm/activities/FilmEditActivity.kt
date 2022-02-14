@@ -130,16 +130,11 @@ class FilmEditActivity : AppCompatActivity() {
                 if (!response.isSuccessful) {
                     Toast.makeText(
                         this@FilmEditActivity,
-                        "Server side error while creating a new film.",
+                        getString(R.string.server_error_film_create),
                         Toast.LENGTH_LONG
                     ).show()
                     Log.d("Error creating film", response.errorBody().toString())
                 } else {
-                    Toast.makeText(
-                        this@FilmEditActivity,
-                        "Film created",
-                        Toast.LENGTH_SHORT
-                    ).show()
                     finish()
                 }
             }
@@ -147,7 +142,7 @@ class FilmEditActivity : AppCompatActivity() {
             override fun onFailure(call: Call<Film>, t: Throwable) {
                 Toast.makeText(
                     this@FilmEditActivity,
-                    "Unexpected error while creating a new film.",
+                    getString(R.string.unkown_error_film_create),
                     Toast.LENGTH_LONG
                 ).show()
                 Log.d("Error creating film", t.toString())
@@ -163,16 +158,11 @@ class FilmEditActivity : AppCompatActivity() {
                 if (!response.isSuccessful) {
                     Toast.makeText(
                         this@FilmEditActivity,
-                        "Server side error while editing the film.",
+                        getString(R.string.server_error_film_edit),
                         Toast.LENGTH_LONG
                     ).show()
                     Log.d("Error editing film", response.errorBody().toString())
                 } else {
-                    Toast.makeText(
-                        this@FilmEditActivity,
-                        "Film edited!!",
-                        Toast.LENGTH_SHORT
-                    ).show()
                     setResult(RESULT_OK, Intent().apply {
                         putExtra(
                             KEYS.FILM, response.body() as Film
@@ -186,7 +176,7 @@ class FilmEditActivity : AppCompatActivity() {
             override fun onFailure(call: Call<Film>, t: Throwable) {
                 Toast.makeText(
                     this@FilmEditActivity,
-                    "Unexpected error while editing the film.",
+                    getString(R.string.unkown_error_film_edit),
                     Toast.LENGTH_LONG
                 ).show()
                 Log.d("Error editing film", t.toString())
